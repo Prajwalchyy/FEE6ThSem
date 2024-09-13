@@ -1,0 +1,637 @@
+/* ADMIN LOGIN PAGE........................................ */
+.alogin-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(33, 220, 195);
+}
+
+.login-middiv {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.login-middiv h2 {
+    color: #ba9494;
+    text-align: center;
+}
+
+.login-middiv label {
+    color: #555;
+}
+
+.login-middiv .adinput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.aloginbtn {
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    background-color: rgb(90, 61, 117);
+    padding: 10px;
+    font-size: medium;
+    display: block;
+    margin: auto;
+}
+
+.aloginbtn:hover {
+    background-color: rgb(218, 122, 122);
+}
+
+
+/* DASHHEADER SIDEBAR ........................................................................*/
+
+.dashhead_body {
+    background-color: rgb(213, 237, 233);
+    padding: 0;
+    margin: 0;
+}
+
+.header_sidebar {
+    height: 100%;
+    /* width: 250px; */
+    width: 15%;
+    position: fixed;
+    background-color: #363631;
+}
+
+.header_sidebar a,
+p {
+    padding: 20px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.header_sidebar .header_sidebar_contents:hover {
+    background-color: #575757;
+}
+
+.header_sidebar .active {
+    background-color: #76bd2b;
+}
+
+
+/* student list .............................................................................. */
+
+.Student_list_body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    /* padding: 20px; */
+}
+
+.studentlist_maincontents {
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+}
+
+.studentlist_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.studentlist_header h1 {
+    margin: 0;
+}
+
+.student_search_bar {
+    display: flex;
+    align-items: center;
+}
+
+.student_search_bar input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.student_search_bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.studentlist_header a {
+    text-decoration: none;
+    color: white;
+    background-color: #375d5e;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.studentlist_table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.studentlist_table th,
+.studentlist_table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.studentlist_table th {
+    background-color: #f8f8f8;
+}
+
+.studentlist_table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.studentlist_action_buttons a {
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.studentlist_update {
+    background-color: #007bff;
+    color: white;
+}
+
+.studentlist_delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.studentlist_detail {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+/* Collect Fee.................................................................... */
+
+.collectfee_body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+
+.collectfee_contents {
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+}
+
+.collectfee_header {
+
+    display: flex;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+
+}
+
+.collectfee_header .collectfee_heading {
+    text-align: left;
+    justify-content: left;
+}
+
+.collectfee_centre {
+    display: flex;
+    margin-left: 20%;
+
+}
+
+
+.collectfee_search,
+.collectfee_faculty,
+.collectfee_header_actionbtns {
+    display: flex;
+    align-items: center;
+}
+
+.collectfee_search label,
+.collectfee_faculty label {
+    margin-right: 10px;
+}
+
+.collectfee_search input,
+.collectfee_faculty select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* width: 300px; */
+}
+
+.collectfee_search input,
+.collectfee_faculty select,
+.collectfee_filter,
+.collectfee_reset {
+    margin-right: 10px;
+}
+
+.collectfee_filter,
+.collectfee_reset {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.collectfee_filter {
+    background-color: #28a745;
+}
+
+.collectfee_reset {
+    background-color: #dc3545;
+}
+
+.collectfee_table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.collectfee_table th,
+.collectfee_table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.collectfee_table th {
+    background-color: #f8f8f8;
+}
+
+.collectfee_table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.collectfee_table button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* faculty------------------------------------------------------------------------------------ */
+.faculty_body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.faculty_contents {
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+}
+
+.faculty_header {
+    display: flex;
+    /* justify-content: left; */
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+
+.faculty_header a {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-color: #375d5e;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.faculty_add {
+    margin-right: 5%;
+}
+
+.faculty_search {
+    display: flex;
+    align-items: center;
+    margin-right: 3%;
+}
+
+.faculty_search input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.faculty_search button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.faculty_table_limit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.faculty_table_limit label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.faculty_limit {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 60px;
+}
+
+.faculty_table_limit button {
+    padding: 5px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.faculty_table_limit button:hover {
+    background-color: #45a049;
+}
+
+
+.faculty_table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.faculty_table th,
+.faculty_table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.faculty_table th {
+    background-color: #f8f8f8;
+}
+
+.faculty_table th a,
+.faculty_table td a{
+    text-decoration: none;
+    color: black;
+}
+
+.faculty_table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+.faculty_action_buttons a {
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.faculty_update {
+    background-color: #007bff;
+    color: white;
+}
+
+.faculty_delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.faculty_pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.faculty_pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.faculty_pagination a.active {
+    background-color: #0056b3;
+}
+
+.faculty_pagination a:hover {
+    background-color: #0056b3;
+}
+
+
+/* ADDFACULTY--------------------------------------------------------------------------------- */
+
+.addfaculty_body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(33, 220, 195);
+}
+
+.addfaculty_contents {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.addfaculty_contents h2 {
+    color: #ba9494;
+    text-align: center;
+}
+
+.addfaculty_contents label {
+    color: #555;
+    font-size: 20px;
+}
+
+.addfaculty_pbased {
+    margin-bottom: 15px;
+}
+.addfaculty_pbased label {
+    margin-right: 10px;
+}
+.addfaculty_pbased input[type="radio"] {
+    margin-right: 5px;
+}
+
+.addfacultyinput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.addfacbtn {
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    background-color: rgb(90, 61, 117);
+    padding: 10px;
+    font-size: medium;
+    display: block;
+    margin: auto;
+}
+
+.addfacbtn:hover {
+    background-color: rgb(218, 122, 122);
+}
+
+/* facultyupdate -------------------------------------------------------------------------------*/
+
+.updatefaculty_body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(33, 220, 195);
+}
+
+.updatefaculty_contents {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.updatefaculty_contents h2 {
+    color: #ba9494;
+    text-align: center;
+}
+
+.updatefaculty_contents label {
+    color: #555;
+    font-size: 20px;
+}
+
+.updatefacultyinput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+.updatefacbtn {
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    background-color: rgb(90, 61, 117);
+    padding: 10px;
+    font-size: medium;
+    display: block;
+    margin: auto;
+}
+
+.updatefacbtn:hover {
+    background-color: rgb(218, 122, 122);
+}
+
+
+/* ADD STUDENT------------------------------------------------------------------------------------ */
+
+.addstudent_body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(33, 220, 195);
+
+.addstudent_contents {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.addstudent_contents h2 {
+    color: #ba9494;
+    text-align: center;
+}
+
+.addstudent_contents label {
+    color: #555;
+    font-size: large;
+}
+
+.addstudent_contents p{
+    color: black;
+    font-size: 22px;
+    height: auto;
+}
+
+/* Style for text inputs and select */
+.addstudent_contents input[type="text"],
+.addstudent_contents input[type="tel"],
+.addstudent_contents input[type="date"],
+.addstudent_contents select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc; 
+    margin-bottom: 10px;
+}
+
+/* Style for radio buttons */
+/* .addstudent_contents input[type="radio"] {
+    margin-right: 5px;  
+} */
+
+/* Style for the submit button */
+.addstudent_subbutton {
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    background-color: rgb(90, 61, 117);
+    padding: 10px;
+    font-size: medium;
+    display: block;
+    margin: auto;
+    border: none;
+    color: white; 
+    border-radius: 4px;
+}
+
+.addstudent_subbutton:hover {
+    background-color: rgb(218, 122, 122);
+}

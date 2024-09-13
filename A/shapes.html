@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .rectangle {
+            width: 200px;
+            height: 100px;
+            background-color: blue;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid green;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .oval {
+            width: 200px;
+            height: 100px;
+            background-color: purple;
+            border-radius: 100px / 50px;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .star {
+            position: relative;
+            display: inline-block;
+            color: yellow;
+            font-size: 50px;
+            width: 1em;
+            height: 1em;
+            margin: 50px;
+        }
+
+        .star:before,
+        .star:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-right: .5em solid transparent;
+            border-bottom: .7em solid yellow;
+            border-left: .5em solid transparent;
+            transform: rotate(-35deg);
+        }
+
+        .star:before {
+            transform: rotate(35deg);
+        }
+
+        .star:after {
+            transform: rotate(-35deg);
+        }
+    </style>
+</head>
+<body>
+
+<div class="rectangle"></div>
+<div class="circle"></div>
+<div class="triangle"></div>
+<div class="oval"></div>
+<div class="star"></div>
+
+<br><br>
+
+1. __________ <br>
+2. __________ <br>
+3. __________ <br>
+4. __________ <br>
+5. __________ <br>
+
+</body>
+</html>
