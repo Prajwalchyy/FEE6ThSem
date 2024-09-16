@@ -44,6 +44,14 @@ $program_result = mysqli_query($conn, $fetch_programnames);
                 </div>
             </div>
         </div>
+        <div class="collectfee_table_limit">
+            <label>Table Limit</label>
+            <form action="" method="GET">
+                <input class="collectfee_limit" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 5; ?>">
+                <button type="submit">SET</button>
+                <button type="button" onclick="window.location.href='collectfee.php';">RESET</button>
+            </form>
+        </div>
 
 
         <div class="collectfee_table">

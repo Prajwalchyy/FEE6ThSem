@@ -19,7 +19,15 @@
                 <input type="text" placeholder="Search students...">
                 <button type="button">Search</button>
             </div>
-            <a href="">Add student</a>
+            <a href="studentadd.php">Add student</a>
+        </div>
+        <div class="studentlist_table_limit">
+            <label>Table Limit</label>
+            <form action="" method="GET">
+                <input class="studentlist_limit" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 5; ?>">
+                <button type="submit">SET</button>
+                <button type="button" onclick="window.location.href='studentlist.php';">RESET</button>
+            </form>
         </div>
 
         <div class="studentlist_table">
