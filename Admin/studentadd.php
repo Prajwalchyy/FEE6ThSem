@@ -25,31 +25,21 @@ if (isset($_POST['studentsubbtn'])) {
 
   if (mysqli_num_rows($result_enroll) > 0) {
     $_SESSION['message'] = "Enrollment number already exists.";
-    header("location: " . $_SERVER['PHP_SELF']);
-    exit();
   } elseif (mysqli_num_rows($result_contact) > 0) {
     $_SESSION['message'] = "Contact number already exists.";
-    header("location: " . $_SERVER['PHP_SELF']);
-    exit();
   } elseif (!preg_match('/^9[78][0-9]{8}$/', $contact)) {
     $_SESSION['message'] = "INVALID CONTACT NUMBER. PLEASE USE A VALID CONTACT NUMBER.";
-    header("location: " . $_SERVER['PHP_SELF']);
-    exit();
   } elseif (!preg_match('/^\d{4}$/', $batch_year)) {
     $_SESSION['message'] = "BATCH YEAR MUST BE 4 DIGITS.";
-    header("location: " . $_SERVER['PHP_SELF']);
-    exit();
   } elseif (empty($enroll) || empty($name) || empty($contact) || empty($sex) || empty($faculty) || empty($batch_year) || empty($sfee) || empty($sfeeplan)) {
     $_SESSION['message'] = "ALL FIELDS ARE REQUIRED!";
-    header("location: " . $_SERVER['PHP_SELF']);
-    exit();
   } elseif (mysqli_num_rows($faculty_result) > 0) {
     $faculty_row = mysqli_fetch_assoc($faculty_result);
     $pid = $faculty_row['pid'];
-    
+
     $insertquery = "INSERT INTO student (senroll, sname, scontact, ssex, pid, sbatchyear, sfee, sfeeplan, spassword) 
     VALUES ('$enroll', '$name', '$contact', '$sex', '$pid', '$batch_year', '$sfee', '$sfeeplan', '$spassword')";
-    
+
     $result = mysqli_query($conn, $insertquery);
     if ($result) {
       $_SESSION['message'] = "Student added successfully!";
@@ -95,14 +85,6 @@ if (isset($_SESSION['message'])) {
 
     <p>Student Information</p>
     <form method="post" action="#">
-
-      <?php if (!empty($error_message)) { ?>
-        <div class="error_message"><?php echo htmlspecialchars($error_message); ?></div>
-      <?php } ?>
-
-      <?php if (!empty($success_message)) { ?>
-        <div class="success_message"><?php echo htmlspecialchars($success_message); ?></div>
-      <?php } ?>
 
       <label for="enroll">Enroll number:</label>
       <input type="text" id="enroll" name="enroll" class="addstudent_contents_input" required><br>

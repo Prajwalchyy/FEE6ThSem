@@ -1,10 +1,14 @@
 <?php
 include 'db/connection.php';
 
+// $where = "";
+// if (isset($_GET['search']) && !empty($_GET['search'])) {
+//     $search = mysqli_real_escape_string($conn, $_GET['search']);
+//     $where = "WHERE sname LIKE '%$search%' OR senroll LIKE '%$search%' OR scontact LIKE '%$search%'";
+// }
 $where = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
-    
     $where = "WHERE sname LIKE '%$search%' OR senroll LIKE '%$search%' OR scontact LIKE '%$search%'";
 }
 
@@ -29,7 +33,8 @@ $offset = ($page - 1) * $limit;
 
 
 $counter = ($page - 1) * $limit + 1;
-$total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM program $where");
+// $total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM student $where");
+$total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM student $where");
 $total_row = mysqli_fetch_assoc($total_result);
 $total_records = $total_row['total'];
 
@@ -40,9 +45,17 @@ $sort_order = isset($_GET['order']) && $_GET['order'] == 'asc' ? 'asc' : 'desc';
 $new_sort_order = $sort_order === 'asc' ? 'desc' : 'asc';
 
 
-$select_student = "SELECT * FROM student $where ORDER BY senroll $sort_order LIMIT $limit OFFSET $offset";
+// $select_student = "SELECT * FROM student
+// JOIN program ON student.pid = program.pid 
+//  $where ORDER BY senroll  LIMIT $limit OFFSET $offset";
+
+$select_student = "SELECT * FROM student
+JOIN program ON student.pid = program.pid
+$where ORDER BY senroll LIMIT $limit OFFSET $offset";
 $fetch_students = mysqli_query($conn, $select_student);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,9 +64,10 @@ $fetch_students = mysqli_query($conn, $select_student);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student List</title>
     <link rel="stylesheet" href="index.css">
-   
+
 </head>
 <?php include 'dashhead.php'; ?>
+
 <body class="Student_list_body">
     <div class="studentlist_maincontents">
 
@@ -61,18 +75,30 @@ $fetch_students = mysqli_query($conn, $select_student);
         <div class="studentlist_header">
             <h1>Student List</h1>
             <div class="student_search_bar">
-                <input type="text" placeholder="Search students...">
-                <button type="button">Search</button>
+                <form method="GET" action="studentlist.php">
+                    <input type="text" name="search" placeholder="Search by enroll, name or contact"
+                        value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    <button type="submit">Search</button>
+                    <button type="button" onclick="window.location.href='studentlist.php';">Reset</button>
+                </form>
             </div>
+
             <a href="studentadd.php">Add student</a>
         </div>
         <div class="studentlist_table_limit">
             <label>Table Limit</label>
-            <form action="" method="GET">
-                <input class="studentlist_limit" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 10; ?>">
+            <form action="" method="GET" id="studentlist_limit_form">
+                <input class="studentlist_limit" id="studentlist_limitid" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 10; ?>">
+                <input type="hidden" name="search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                 <button type="submit">SET</button>
-                <button type="button" onclick="window.location.href='studentlist.php';">RESET</button>
+                <button type="button" onclick="resetLimit()">RESET</button>
             </form>
+            <script>
+                function resetLimit() {
+                    document.getElementById('studentlist_limitid').value = 10;
+                    document.getElementById('studentlist_limit_form').submit();
+                }
+            </script>
         </div>
 
         <div class="studentlist_table">
@@ -89,23 +115,23 @@ $fetch_students = mysqli_query($conn, $select_student);
                 </thead>
                 <tbody>
                     <?php
-                    while($row = mysqli_fetch_assoc($fetch_students)){
+                    while ($row = mysqli_fetch_assoc($fetch_students)) {
                     ?>
-                    <tr>
-                        <td><?php echo $row['senroll']; ?></td>
-                        <td><?php echo $row['sname']; ?></td>
-                        <td><?php echo $row['scontact']; ?></td>
-                        <td><?php echo $row['pname']; ?></td>
-                        <td class="studentlist_action_buttons">
-                            <a href="actions/studentupdate.php?update=<?php echo $row['sid']; ?>" class="studentlist_update">Update</a>
-                            <a href="actions/studentdelete.php?delete=<?php echo $row['sid']; ?>" class="studentlist_delete" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
-                        </td>
-                        <td>
-                            <a href="actions/studentdetail.php?detail=<?php echo $row['sid']; ?>" class="studentlist_detail">Detail</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><?php echo $row['senroll']; ?></td>
+                            <td><?php echo $row['sname']; ?></td>
+                            <td><?php echo $row['scontact']; ?></td>
+                            <td><?php echo $row['pname']; ?></td>
+                            <td class="studentlist_action_buttons">
+                                <a href="actions/studentupdate.php?update=<?php echo $row['sid']; ?>" class="studentlist_update">Update</a>
+                                <a href="actions/studentdelete.php?delete=<?php echo $row['sid']; ?>" class="studentlist_delete" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                            </td>
+                            <td>
+                                <a href="actions/studentdetail.php?detail=<?php echo $row['sid']; ?>" class="studentlist_detail">Detail</a>
+                            </td>
+                        </tr>
                     <?php
-                    $counter++;
+                        $counter++;
                     }
                     ?>
                 </tbody>
@@ -113,7 +139,7 @@ $fetch_students = mysqli_query($conn, $select_student);
 
         </div>
 
-        <div class="faculty_pagination">
+        <div class="studentlist_pagination">
             <?php if ($page > 1) : ?>
                 <a href="?page=<?php echo $page - 1; ?>&search=<?php echo isset($_GET['search']) ? urlencode($_GET['search']) : ''; ?>&limit=<?php echo $limit; ?>">Previous</a>
             <?php endif; ?>
@@ -126,6 +152,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                 <a href="?page=<?php echo $page + 1; ?>&search=<?php echo isset($_GET['search']) ? urlencode($_GET['search']) : ''; ?>&limit=<?php echo $limit; ?>">Next</a>
             <?php endif; ?>
         </div>
+
     </div>
 
 </body>

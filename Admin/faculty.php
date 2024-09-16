@@ -43,9 +43,8 @@ $new_sort_order = $sort_order === 'asc' ? 'desc' : 'asc';
 
 
 //fetching
-// $select = "SELECT * FROM program $where ORDER BY ecategoryid DESC LIMIT $limit OFFSET $offset";
-// $result = mysqli_query($conn, $select);
-$select = "SELECT * FROM program $where ORDER BY pname $sort_order LIMIT $limit OFFSET $offset";
+// $select = "SELECT * FROM program $where ORDER BY pname $sort_order LIMIT $limit OFFSET $offset";
+$select = "SELECT * FROM program $where ORDER BY pname LIMIT $limit OFFSET $offset";
 $result = mysqli_query($conn, $select);
 
 ?>
@@ -81,13 +80,20 @@ $result = mysqli_query($conn, $select);
         </div>
         <div class="faculty_table_limit">
             <label>Table Limit</label>
-            <form action="" method="GET">
-                <input class="faculty_limit" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 5; ?>">
+            <form id="facultyLimitForm" action="" method="GET">
+                <input class="faculty_limit" type="text" id="facultyLimitInput" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 5; ?>">
+                <input type="hidden" name="search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                 <button type="submit">SET</button>
-                <button type="button" onclick="window.location.href='faculty.php';">RESET</button>
+                <button type="button" onclick="resetFacultyLimit()">RESET</button>
             </form>
-        </div>
 
+            <script>
+                function resetFacultyLimit() {
+                    document.getElementById('facultyLimitInput').value = 5;
+                    document.getElementById('facultyLimitForm').submit();
+                }
+            </script>
+        </div>
         <div class="faculty_table">
             <table>
                 <thead>
@@ -126,7 +132,6 @@ $result = mysqli_query($conn, $select);
             </table>
         </div>
 
-        <!-- Pagination controls -->
         <div class="faculty_pagination">
             <?php if ($page > 1) : ?>
                 <a href="?page=<?php echo $page - 1; ?>&search=<?php echo isset($_GET['search']) ? urlencode($_GET['search']) : ''; ?>&limit=<?php echo $limit; ?>">Previous</a>
