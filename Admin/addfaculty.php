@@ -26,8 +26,6 @@ if (isset($_POST['faddbutton'])) {
         } else {
             $_SESSION['message'] = "Error adding program: " . mysqli_error($conn);
         }
-        // header("Location: faculty.php");
-        // exit();
         $_SESSION['redirect'] = "faculty.php";
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
