@@ -23,8 +23,6 @@ if (isset($_POST['studentsubbtn'])) {
   $result_contact = mysqli_query($conn, $check_contact);
   $faculty_query = "SELECT * FROM program WHERE pname = '$faculty' LIMIT 1";
   $faculty_result = mysqli_query($conn, $faculty_query);
-  // $fetch_program_all = "SELECT * FROM program";
-  // $program_resultall = mysqli_query($conn, $fetch_program_all);
 
   if (mysqli_num_rows($result_enroll) > 0) {
     $_SESSION['message'] = "Enrollment number already exists.";
@@ -106,14 +104,15 @@ if (isset($_SESSION['message'])) {
       <br><br>
 
       <label for="faculty">Faculty:</label>
-      <select id="faculty" name="faculty" class="addstudent_contents_input" required>
+      <select id="faculty" name="faculty" class="addstudent_contents_input" required onchange="updatePaymentStyle()">
         <option value="">Select a faculty</option>
         <?php
         while ($program = mysqli_fetch_assoc($program_result)) {
-          echo '<option value="' . htmlspecialchars($program['pname']) . '">' . htmlspecialchars($program['pname']) . '</option>';
+          echo '<option value="' . htmlspecialchars($program['pname']) . '" data-pbased="' . htmlspecialchars($program['pbased']) . '">' . htmlspecialchars($program['pname']) . '</option>';
         }
         ?>
       </select>
+
       <br>
 
       <label for="batch_year">Batch Year:</label>
@@ -124,12 +123,31 @@ if (isset($_SESSION['message'])) {
       <label for="totalfee">Total Fees</label>
       <input type="text" name="totalfee" class="addstudent_contents_input">
 
-      <label for="payment_style">Payment Style:</label>
+      <label for="payment_style">Student Payment plan:</label>
       <select id="payment_style" name="payment_style" class="addstudent_contents_input" required>
         <option value="">Select.....</option>
+        <script>
+          function updatePaymentStyle() {
+            // Get the selected faculty option and its data-pbased attribute
+            var facultySelect = document.getElementById('faculty');
+            var selectedOption = facultySelect.options[facultySelect.selectedIndex];
+            var pbased = selectedOption.getAttribute('data-pbased');
 
-        <option value="yearly">Yearly</option>
-        <option value="semester">Semester</option>
+            // Get the payment style dropdown
+            var paymentStyleSelect = document.getElementById('payment_style');
+
+            // Clear all options in the payment style dropdown
+            paymentStyleSelect.innerHTML = '<option value="">Select.....</option>';
+
+            if (pbased === 'year') {
+              paymentStyleSelect.innerHTML += '<option value="yearly">Yearly</option>';
+            } else if (pbased === 'semester') {
+              paymentStyleSelect.innerHTML += '<option value="yearly">Yearly</option>';
+              paymentStyleSelect.innerHTML += '<option value="semester">Semester</option>';
+            }
+          }
+        </script>
+
       </select>
       <br><br>
 

@@ -65,7 +65,7 @@ if (isset($_SESSION['message'])) {
             <div class="addfaculty_pbased">
                 <label>Program Based:</label>
                 <input type="radio" id="yearly" name="programbase" value="yearly" required>
-                <label for="yearly">Yearly</label>
+                <label for="year">Yearly</label>
                 <input type="radio" id="semester" name="programbase" value="semester">
                 <label for="semester">Semester</label>
             </div>
