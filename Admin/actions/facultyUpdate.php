@@ -20,14 +20,11 @@ if (isset($_POST['fupdatebutton'])) {
     $update = "UPDATE program SET pname='$programname', pfullname='$programfullname', pyear='$programyear', pbased='$programbased' WHERE pid='$id'";
     if (mysqli_query($conn, $update)) {
         echo "<script>alert('program updated successfully'); window.location.href='../faculty.php';</script>";
-        
     } else {
         echo "<script>alert('Error updating record: " . mysqli_error($conn) . "');</script>";
     }
 }
 ?>
-
-
 
 <html>
 
@@ -46,11 +43,16 @@ if (isset($_POST['fupdatebutton'])) {
 
             <div class="updateaddfaculty_pbased">
                 <label>Program Based:</label>
-                <input type="radio" id="year" name="programbased" value="year" <?php echo htmlspecialchars($faculty['pbased']) == 'Year' ? 'checked' : ''; ?> required>
+
+                <input type="radio" id="year" name="programbased" value="year"
+                    <?php echo strtolower($faculty['pbased']) == 'year' ? 'checked' : ''; ?> required>
                 <label for="year">Year</label>
-                <input type="radio" id="semester" name="programbased" value="semester" <?php echo htmlspecialchars($faculty['pbased']) == 'Semester' ? 'checked' : ''; ?>>
+
+                <input type="radio" id="semester" name="programbased" value="semester"
+                    <?php echo strtolower($faculty['pbased']) == 'semester' ? 'checked' : ''; ?>>
                 <label for="semester">Semester</label>
             </div>
+
 
             <br>
 

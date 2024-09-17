@@ -133,10 +133,8 @@ if (isset($_SESSION['message'])) {
             var selectedOption = facultySelect.options[facultySelect.selectedIndex];
             var pbased = selectedOption.getAttribute('data-pbased');
 
-            // Get the payment style dropdown
             var paymentStyleSelect = document.getElementById('payment_style');
 
-            // Clear all options in the payment style dropdown
             paymentStyleSelect.innerHTML = '<option value="">Select.....</option>';
 
             if (pbased === 'year') {
