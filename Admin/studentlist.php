@@ -1,11 +1,6 @@
 <?php
 include 'db/connection.php';
 
-// $where = "";
-// if (isset($_GET['search']) && !empty($_GET['search'])) {
-//     $search = mysqli_real_escape_string($conn, $_GET['search']);
-//     $where = "WHERE sname LIKE '%$search%' OR senroll LIKE '%$search%' OR scontact LIKE '%$search%'";
-// }
 $where = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
@@ -45,13 +40,13 @@ $sort_order = isset($_GET['order']) && $_GET['order'] == 'asc' ? 'asc' : 'desc';
 $new_sort_order = $sort_order === 'asc' ? 'desc' : 'asc';
 
 
-// $select_student = "SELECT * FROM student
-// JOIN program ON student.pid = program.pid 
-//  $where ORDER BY senroll  LIMIT $limit OFFSET $offset";
 
+// $select_student = "SELECT * FROM student
+// JOIN program ON student.pid = program.pid
+// $where ORDER BY senroll LIMIT $limit OFFSET $offset";
 $select_student = "SELECT * FROM student
 JOIN program ON student.pid = program.pid
-$where ORDER BY senroll LIMIT $limit OFFSET $offset";
+$where ORDER BY CAST(senroll AS UNSIGNED) DESC LIMIT $limit OFFSET $offset";
 $fetch_students = mysqli_query($conn, $select_student);
 
 ?>
@@ -105,6 +100,7 @@ $fetch_students = mysqli_query($conn, $select_student);
             <table>
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Enroll No</th>
                         <th>Name</th>
                         <th>Contact</th>
@@ -118,6 +114,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                     while ($row = mysqli_fetch_assoc($fetch_students)) {
                     ?>
                         <tr>
+                            <td><?php echo $counter; ?></td>
                             <td><?php echo $row['senroll']; ?></td>
                             <td><?php echo $row['sname']; ?></td>
                             <td><?php echo $row['scontact']; ?></td>

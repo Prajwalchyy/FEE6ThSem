@@ -2,8 +2,9 @@
 
 session_start();
 
-$fetch_programnames = "SELECT pname FROM program ORDER BY pname ASC";
-$program_result = mysqli_query($conn, $fetch_programnames);
+// $fetch_programnames = "SELECT pname FROM program ORDER BY pname ASC";
+$fetch_program_all = "SELECT * FROM program ORDER BY pname ASC";
+$program_result = mysqli_query($conn, $fetch_program_all);
 
 if (isset($_POST['studentsubbtn'])) {
   $enroll = mysqli_real_escape_string($conn, $_POST['enroll']);
@@ -20,8 +21,10 @@ if (isset($_POST['studentsubbtn'])) {
   $result_enroll = mysqli_query($conn, $check_enroll);
   $check_contact = "SELECT * FROM student WHERE scontact = '$contact'";
   $result_contact = mysqli_query($conn, $check_contact);
-  $faculty_query = "SELECT pid FROM program WHERE pname = '$faculty' LIMIT 1";
+  $faculty_query = "SELECT * FROM program WHERE pname = '$faculty' LIMIT 1";
   $faculty_result = mysqli_query($conn, $faculty_query);
+  // $fetch_program_all = "SELECT * FROM program";
+  // $program_resultall = mysqli_query($conn, $fetch_program_all);
 
   if (mysqli_num_rows($result_enroll) > 0) {
     $_SESSION['message'] = "Enrollment number already exists.";
@@ -35,10 +38,10 @@ if (isset($_POST['studentsubbtn'])) {
     $_SESSION['message'] = "ALL FIELDS ARE REQUIRED!";
   } elseif (mysqli_num_rows($faculty_result) > 0) {
     $faculty_row = mysqli_fetch_assoc($faculty_result);
-    $pid = $faculty_row['pid'];
+    $pnameid = $faculty_row['pid'];
 
     $insertquery = "INSERT INTO student (senroll, sname, scontact, ssex, pid, sbatchyear, sfee, sfeeplan, spassword) 
-    VALUES ('$enroll', '$name', '$contact', '$sex', '$pid', '$batch_year', '$sfee', '$sfeeplan', '$spassword')";
+    VALUES ('$enroll', '$name', '$contact', '$sex', '$pnameid', '$batch_year', '$sfee', '$sfeeplan', '$spassword')";
 
     $result = mysqli_query($conn, $insertquery);
     if ($result) {
@@ -124,6 +127,7 @@ if (isset($_SESSION['message'])) {
       <label for="payment_style">Payment Style:</label>
       <select id="payment_style" name="payment_style" class="addstudent_contents_input" required>
         <option value="">Select.....</option>
+
         <option value="yearly">Yearly</option>
         <option value="semester">Semester</option>
       </select>
