@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'db/connection.php';
 
 // Fetch 
@@ -10,7 +10,17 @@ $program_result = mysqli_query($conn, $fetch_programnames);
 $where = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
-    $where = "WHERE sname LIKE '%$search%' OR senroll LIKE '%$search%' OR scontact LIKE '%$search%'";
+    // $where = "WHERE sname LIKE '%$search%' OR senroll LIKE '%$search%' OR scontact LIKE '%$search%'";
+    $where = "WHERE sname LIKE '%$search%'";
+}
+
+if (isset($_GET['faculty']) && !empty($_GET['faculty']) && $_GET['faculty'] != 'Select Program') {
+    $faculty = mysqli_real_escape_string($conn, $_GET['faculty']);
+    if (!empty($where)) {
+        $where .= " AND program.pname = '$faculty'";
+    } else {
+        $where = "WHERE program.pname = '$faculty'";
+    }
 }
 
 //page table limit
@@ -35,7 +45,9 @@ $offset = ($page - 1) * $limit;
 
 $counter = ($page - 1) * $limit + 1;
 // $total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM student $where");
-$total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM student $where");
+$total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM student 
+JOIN program ON student.pid = program.pid $where");
+
 $total_row = mysqli_fetch_assoc($total_result);
 $total_records = $total_row['total'];
 
@@ -68,26 +80,30 @@ $fetch_students = mysqli_query($conn, $select_student);
                 <h1>Fees</h1>
             </div>
             <div class="collectfee_centre">
-                <div class="collectfee_search">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" placeholder="Enter name">
-                </div>
-                <div class="collectfee_faculty">
-                    <label for="faculty">Grade</label>
-                    <select id="faculty">
-                        <option>Select Program</option>
-                        <?php
-                        while ($program = mysqli_fetch_assoc($program_result)) {
-                            echo '<option value="' . htmlspecialchars($program['pname']) . '">' . htmlspecialchars($program['pname']) . '</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="collectfee_header_actionbtns">
-                    <button class="collectfee_filter">Filter</button>
-                    <button class="collectfee_reset">Reset</button>
-                </div>
+                <form method="GET" action="">
+                    <div class="collectfee_search">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="search" placeholder="Enter name" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    </div>
+                    <div class="collectfee_faculty">
+                        <label for="faculty">Grade</label>
+                        <select id="faculty" name="faculty">
+                            <option>Select Program</option>
+                            <?php
+                            while ($program = mysqli_fetch_assoc($program_result)) {
+                                $selected = (isset($_GET['faculty']) && $_GET['faculty'] == $program['pname']) ? 'selected' : '';
+                                echo '<option value="' . htmlspecialchars($program['pname']) . '" ' . $selected . '>' . htmlspecialchars($program['pname']) . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="collectfee_header_actionbtns">
+                        <button class="collectfee_filter" type="submit">Filter</button>
+                        <button class="collectfee_reset" type="button" onclick="window.location.href='collectfee.php'">Reset</button>
+                    </div>
+                </form>
             </div>
+
         </div>
         <div class="collectfee_table_limit">
             <label>Table Limit</label>
@@ -119,18 +135,21 @@ $fetch_students = mysqli_query($conn, $select_student);
                     </tr>
                 </thead>
                 <tbody>
-                <?php
+                    <?php
                     while ($row = mysqli_fetch_assoc($fetch_students)) {
                     ?>
-                    <tr>
-                        <td><?php echo $counter; ?></td>
-                        <td><?php echo $row['sname']; ?></td>
-                        <td><?php echo $row['scontact']; ?></td>
-                        <td><?php echo $row['pname']; ?></td>
-                        <td>10000</td>
-                        <td>1000</td>
-                        <td><button>Collect Fee</button></td>
-                    </tr>
+                        <tr>
+                            <td><?php echo $counter; ?></td>
+                            <td><?php echo $row['sname']; ?></td>
+                            <td><?php echo $row['scontact']; ?></td>
+                            <td><?php echo $row['pname']; ?></td>
+                            <td>10000</td>
+                            <td>1000</td>
+                            <td>
+                            <a href="actions/collectpayment.php?collectpay=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
+                            </td>
+                            <!-- <td><button>Collect Fee</button></td> -->
+                        </tr>
                     <?php
                         $counter++;
                     }
