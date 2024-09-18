@@ -91,11 +91,17 @@ $fetch_students = mysqli_query($conn, $select_student);
         </div>
         <div class="collectfee_table_limit">
             <label>Table Limit</label>
-            <form action="" method="GET">
-                <input class="collectfee_limit" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 10; ?>">
+            <form action="" method="GET" id="collectfee_limit_form">
+                <input class="collectfee_limit" id="collectfee_limit" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 10; ?>">
                 <button type="submit">SET</button>
-                <button type="button" onclick="window.location.href='collectfee.php';">RESET</button>
+                <button type="button" onclick="resetLimit()">RESET</button>
             </form>
+            <script>
+                function resetLimit() {
+                    document.getElementById('collectfee_limit').value = 10;
+                    document.getElementById('collectfee_limit_form').submit();
+                }
+            </script>
         </div>
 
 
@@ -133,7 +139,7 @@ $fetch_students = mysqli_query($conn, $select_student);
             </table>
         </div>
 
-        <div class="studentlist_pagination">
+        <div class="collectfee_pagination">
             <?php if ($page > 1) : ?>
                 <a href="?page=<?php echo $page - 1; ?>&search=<?php echo isset($_GET['search']) ? urlencode($_GET['search']) : ''; ?>&limit=<?php echo $limit; ?>">Previous</a>
             <?php endif; ?>

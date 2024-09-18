@@ -501,6 +501,29 @@ p {
     cursor: pointer;
 }
 
+.collectfee_pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.collectfee_pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.collectfee_pagination a.active {
+    background-color: #0056b3;
+}
+
+.collectfee_pagination a:hover {
+    background-color: #0056b3;
+}
+
 /* faculty------------------------------------------------------------------------------------ */
 .faculty_body {
     font-family: Arial, sans-serif;
