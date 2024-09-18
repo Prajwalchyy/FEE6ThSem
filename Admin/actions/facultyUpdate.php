@@ -10,7 +10,6 @@ if (isset($_GET['update'])) {
 }
 
 
-// update query
 if (isset($_POST['fupdatebutton'])) {
     $programname = mysqli_real_escape_string($conn, $_POST['programname']);
     $programfullname = mysqli_real_escape_string($conn, $_POST['programfullname']);

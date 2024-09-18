@@ -1,8 +1,10 @@
 <?php include 'db/connection.php';
 
 // Fetch 
-$fetch_programnames = "SELECT pname FROM program ORDER BY pname ASC";
+$fetch_programnames = "SELECT * FROM program ORDER BY pname ASC";
 $program_result = mysqli_query($conn, $fetch_programnames);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +60,7 @@ $program_result = mysqli_query($conn, $fetch_programnames);
             <table>
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Name</th>
                         <th>Contact</th>
                         <th>Faculty</th>
@@ -68,6 +71,7 @@ $program_result = mysqli_query($conn, $fetch_programnames);
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>Apple</td>
                         <td>0099887766</td>
                         <td>BCA</td>
