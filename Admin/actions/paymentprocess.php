@@ -1,3 +1,18 @@
+<?php
+
+include '../db/connection.php';
+
+if (isset($_GET['pay'])) {
+    $id = mysqli_real_escape_string($conn, $_GET['pay']);
+    $query = "SELECT * FROM student WHERE sid = '$id'";
+    $result = mysqli_query($conn, $query);
+    $student = mysqli_fetch_assoc($result);
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,7 +120,7 @@
             <h3>Student Information</h3>
             <div class="paymentprocess_infogroup">
                 <label>Name:</label>
-                <span>John Doe</span>
+                <span><?php echo htmlspecialchars($student['sname'])?></span>
             </div>
             <div class="paymentprocess_infogroup">
                 <label>Contact:</label>
@@ -162,3 +177,5 @@
     </div>
 </body>
 </html>
+
+

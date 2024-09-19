@@ -1,5 +1,11 @@
 <?php
+
 include 'db/connection.php';
+
+// session_start(); // Start the session
+// $_SESSION['sid'] = $row['sid']; // Store the student ID in session
+
+
 
 // Fetch 
 $fetch_programnames = "SELECT * FROM program ORDER BY pname ASC";
@@ -58,6 +64,8 @@ $select_student = "SELECT * FROM student
 JOIN program ON student.pid = program.pid
 $where ORDER BY CAST(senroll AS UNSIGNED) DESC LIMIT $limit OFFSET $offset";
 $fetch_students = mysqli_query($conn, $select_student);
+
+
 
 
 ?>
@@ -146,7 +154,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                             <td>10000</td>
                             <td>1000</td>
                             <td>
-                                <a href="actions/paymentprocess.php?payprocess=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
+                                <a href="actions/paymentprocess.php?pay=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
                             </td>
 
                         </tr>
