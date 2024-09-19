@@ -146,9 +146,9 @@ $fetch_students = mysqli_query($conn, $select_student);
                             <td>10000</td>
                             <td>1000</td>
                             <td>
-                            <a href="actions/collectpayment.php?collectpay=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
+                                <a href="actions/paymentprocess.php?payprocess=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
                             </td>
-                            <!-- <td><button>Collect Fee</button></td> -->
+
                         </tr>
                     <?php
                         $counter++;
