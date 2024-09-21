@@ -87,7 +87,7 @@ if (isset($_POST['addfeebtn'])) {
                     <select name="mfeecategory" id="mfeecategory" class="morefee_option" required>
                         <option value="">Select Category.......</option>
                         <option value="Transportation">Transportation</option>
-                        <option value="Exam fee">Exam Fee</option>
+                        <option value="Exam">Exam Fee</option>
                         <option value="Others">Others</option>
                     </select>
                 </div>

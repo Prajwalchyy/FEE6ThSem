@@ -21,12 +21,22 @@ if (isset($_GET['pay'])) {
     //       JOIN program ON student.pid = program.pid
     //       WHERE student.sid = '$id'";
 
+    // $query = "SELECT student.*, morefee.*, program.*, fee_transaction.*
+    // FROM student
+    // LEFT JOIN morefee ON student.sid = morefee.sid
+    // LEFT JOIN program ON student.pid = program.pid
+    // LEFT JOIN fee_transaction ON morefee.mid = fee_transaction.mid
+    // WHERE student.sid = '$id'";
+
+
+
     $query = "SELECT student.*, morefee.*, program.*, fee_transaction.*
-    FROM student
-    LEFT JOIN morefee ON student.sid = morefee.sid
-    LEFT JOIN program ON student.pid = program.pid
-    LEFT JOIN fee_transaction ON morefee.mid = fee_transaction.mid
-    WHERE student.sid = '$id'";
+FROM student
+LEFT JOIN morefee ON student.sid = morefee.sid
+LEFT JOIN program ON student.pid = program.pid
+LEFT JOIN fee_transaction ON morefee.sid = fee_transaction.sid
+WHERE student.sid = '$id'";
+
     $result = mysqli_query($conn, $query);
     $student = mysqli_fetch_assoc($result);
 
@@ -67,9 +77,58 @@ if (isset($_GET['pay'])) {
         // Check if there's partial payment for the next term
         $paidForCurrentTerm = $totalPaid_programfee - ($paidTerms * $feePerTerm);
         $remainingForCurrentTerm = $feePerTerm - $paidForCurrentTerm;
- 
+
+        //more fee
+        // Initialize an array to hold totals for each fee category
+        $remainingFees = []; // Initialize the array
+
+        $query_morefee = "SELECT * FROM morefee WHERE sid = '$id'";
+        $result_morefee = mysqli_query($conn, $query_morefee);
+
+        while ($morefee = mysqli_fetch_assoc($result_morefee)) {
+            $mid = $morefee['mid'];
+            $feeCategory = $morefee['mfeecategory'];
+            $amount = $morefee['amount'];
+
+            // Calculate total paid for this more fee category
+            // $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
+            //                WHERE mid = '$mid' AND feecategory = '$feeCategory'";
+            $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
+            WHERE sid = '$id' AND feecategory = '$feeCategory'";
+
+            $result_paid = mysqli_query($conn, $query_paid);
+
+            $fetch_paid = mysqli_fetch_assoc($result_paid);
+            $totalPaid = $fetch_paid['total_paid'] ?? 0;
+
+            // Calculate remaining fee
+            $remainingFee = $amount - $totalPaid;
+
+            // Only store if there is a remaining fee
+            if ($remainingFee > 0) {
+                if (!isset($remainingFees[$feeCategory])) {
+                    $remainingFees[$feeCategory] = 0; // Initialize if not set
+                }
+                $remainingFees[$feeCategory] += $remainingFee; // Sum up remaining fees
+            }
+        }
+
+
+        // Fetch all available fee categories
+        $query_categories = "SELECT DISTINCT mfeecategory FROM morefee WHERE sid = '$id'";
+        $result_categories = mysqli_query($conn, $query_categories);
+        $feeCategories = [];
+
+        if (mysqli_num_rows($result_categories) > 0) {
+            while ($category = mysqli_fetch_assoc($result_categories)) {
+                $feeCategories[] = htmlspecialchars($category['mfeecategory']);
+            }
+        }
     }
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -143,7 +202,12 @@ if (isset($_GET['pay'])) {
                 <span>RS <?php echo htmlspecialchars(number_format($remainingForCurrentTerm)); ?></span>
             </div>
 
-
+            <?php foreach ($remainingFees as $category => $remaining) : ?>
+                <div class="paymentprocess_infogroup">
+                    <label>Remaining Fee of <?php echo htmlspecialchars($category); ?>:</label>
+                    <span>RS <?php echo htmlspecialchars(number_format($remaining)); ?></span>
+                </div>
+            <?php endforeach; ?>
         </section>
 
         <section class="paymentprocess_pay">
@@ -156,18 +220,52 @@ if (isset($_GET['pay'])) {
                 <div class="paymentprocess_inputgroup">
                     <label>Fee Categories:</label><br>
                     <label>
-                        <input type="checkbox" name="fee_categories[]" value="ProgramFee">
-                        Program Fee
+                        <input type="checkbox" name="fee_categories[]" value="ProgramFee" onclick="toggleInput(this)"> Program Fee
+                    </label>
+                    <?php foreach ($feeCategories as $category): ?>
+                        <label>
+                            <input type="checkbox" name="fee_categories[]" value="<?php echo $category; ?>" onclick="toggleInput(this)"> <?php echo $category; ?>
+                        </label>
+                    <?php endforeach; ?>
                 </div>
-                <div class="paymentprocess_inputgroup">
+                <div id="amountInputs" class="paymentprocess_inputgroup"></div>
+
+                <script>
+                    function toggleInput(checkbox) {
+                        const amountInputsDiv = document.getElementById("amountInputs");
+
+                        if (checkbox.checked) {
+                            // Create a new input field for the selected category
+                            const inputField = document.createElement("div");
+                            inputField.innerHTML = `
+            <label>${checkbox.value} Amount:</label>
+            <input type="number" class="paymentprocess_inputamount" name="amounts[${checkbox.value}]" placeholder="Enter amount" required>`;
+                            amountInputsDiv.appendChild(inputField);
+                        } else {
+                            // Remove the corresponding input field if the checkbox is unchecked
+                            const inputs = amountInputsDiv.getElementsByTagName("div");
+                            for (let i = 0; i < inputs.length; i++) {
+                                if (inputs[i].innerText.includes(checkbox.value)) {
+                                    amountInputsDiv.removeChild(inputs[i]);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                </script>
+
+
+
+                <!-- <div class="paymentprocess_inputgroup">
                     <label for="amount">Amount to Pay:</label>
                     <input type="number" id="amount" class="paymentprocess_inputamount" name="amount" placeholder="Enter amount to pay" required>
-                </div>
+                </div> -->
 
                 <div>
                     total paying amount: <span id="total_paying_amount">calculate total amount</span>
                 </div>
                 <button type="submit" class="paymentprocess_inputpaybtn">Process Payment</button><br><br><br>
+
                 <button type="button" class="paymentprocess_inputpaybtn" onclick="confirmBack()">Back</button>
 
                 <script>
