@@ -11,6 +11,10 @@ include 'db/connection.php';
 $fetch_programnames = "SELECT * FROM program ORDER BY pname ASC";
 $program_result = mysqli_query($conn, $fetch_programnames);
 
+// $fetchmorefee = "SELECT * FROM morefee";
+// $morefee_result = mysqli_query($conn, $fetchmorefee);
+
+
 
 
 $where = "";
@@ -139,7 +143,8 @@ $fetch_students = mysqli_query($conn, $select_student);
                         <th>Faculty</th>
                         <th>Fees Remaining</th>
                         <th>Fees Paid</th>
-                        <th>Action</th>
+                        <th>Add fee</th>
+                        <th>Collect Fee</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,6 +158,9 @@ $fetch_students = mysqli_query($conn, $select_student);
                             <td><?php echo $row['pname']; ?></td>
                             <td>10000</td>
                             <td>1000</td>
+                            <td>
+                                <a href="actions/morefee.php?more=<?php echo $row['sid']; ?>" class="collectfee_collect">Add Fee</a>
+                            </td>
                             <td>
                                 <a href="actions/paymentprocess.php?pay=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
                             </td>

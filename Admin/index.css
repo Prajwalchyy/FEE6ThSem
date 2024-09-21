@@ -538,7 +538,9 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
+    height: auto; /* Allow height to adjust based on content */
+    overflow: visible; /* Ensure all content is shown */
 }
 
 .paymentprocess_parentdiv {
@@ -620,6 +622,98 @@ p {
 .paymentprocess_inputpaybtn:hover {
     background-color: #45a049;
 }
+
+/* MORE FEE------------------------------------------------------------------------------------ */
+.morefee_body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.morefee_parentdiv {
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.morefee_parentdiv h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4CAF50; 
+}
+
+.morefee_parentdiv h3 {
+    color: #4CAF50; 
+    margin-bottom: 10px;
+}
+
+.morefee_parentdiv section {
+    margin-bottom: 20px;
+    padding: 20px; 
+    background-color: #f0f0f0;
+    border-radius: 8px; 
+}
+
+.morefee_infogroup {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.morefee_parentdiv label {
+    font-weight: bold;
+}
+
+.morefee_parentdiv span {
+    color: #333;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.morefee_inputgroup {
+    margin-bottom: 15px;
+}
+
+.morefee_option,
+.morefee_inputamount,
+.morefee_inputpaybtn {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.morefee_option:focus,
+.morefee_inputamount:focus,
+.morefee_inputpaybtn:focus {
+    border-color: #4CAF50; 
+    outline: none;
+}
+
+.morefee_inputpaybtn {
+    background-color: #4CAF50; 
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.morefee_inputpaybtn:hover {
+    background-color: #45a049;
+}
+
 
 /* faculty------------------------------------------------------------------------------------ */
 .faculty_body {

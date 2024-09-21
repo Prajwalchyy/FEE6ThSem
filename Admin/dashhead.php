@@ -19,7 +19,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <a href="collectfee.php" class="header_sidebar_contents <?php if ($current_page == 'collectfee.php') { echo 'active'; } ?>">Collect Fee</a>
     <a href="#student-history"class="header_sidebar_contents">Student History</a>
     <a href="#account-settings"class="header_sidebar_contents">Account Settings</a>
-    <a href="#logout"class="header_sidebar_contents">Logout</a>
+    <a href="logout.php"class="header_sidebar_contents">Logout</a>
 </div>
 </body>
 </html>
