@@ -31,11 +31,11 @@ if (isset($_GET['pay'])) {
 
 
     $query = "SELECT student.*, morefee.*, program.*, fee_transaction.*
-FROM student
-LEFT JOIN morefee ON student.sid = morefee.sid
-LEFT JOIN program ON student.pid = program.pid
-LEFT JOIN fee_transaction ON morefee.sid = fee_transaction.sid
-WHERE student.sid = '$id'";
+    FROM student
+    LEFT JOIN morefee ON student.sid = morefee.sid
+    LEFT JOIN program ON student.pid = program.pid
+    LEFT JOIN fee_transaction ON morefee.sid = fee_transaction.sid
+    WHERE student.sid = '$id'";
 
     $result = mysqli_query($conn, $query);
     $student = mysqli_fetch_assoc($result);
@@ -82,13 +82,14 @@ WHERE student.sid = '$id'";
         // Initialize an array to hold totals for each fee category
         $remainingFees = []; // Initialize the array
 
-        $query_morefee = "SELECT * FROM morefee WHERE sid = '$id'";
+        // $query_morefee = "SELECT * FROM morefee WHERE sid = '$id'";
+        $query_morefee = "SELECT mfeecategory, SUM(amount) as total_fee FROM morefee WHERE sid = '$id' GROUP BY mfeecategory";
         $result_morefee = mysqli_query($conn, $query_morefee);
 
         while ($morefee = mysqli_fetch_assoc($result_morefee)) {
-            $mid = $morefee['mid'];
             $feeCategory = $morefee['mfeecategory'];
-            $amount = $morefee['amount'];
+            // $amount = $morefee['amount'];
+            $totalFee = $morefee['total_fee'];
 
             // Calculate total paid for this more fee category
             // $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
@@ -102,7 +103,7 @@ WHERE student.sid = '$id'";
             $totalPaid = $fetch_paid['total_paid'] ?? 0;
 
             // Calculate remaining fee
-            $remainingFee = $amount - $totalPaid;
+            $remainingFee = $totalFee - $totalPaid;
 
             // Only store if there is a remaining fee
             if ($remainingFee > 0) {
@@ -112,20 +113,52 @@ WHERE student.sid = '$id'";
                 $remainingFees[$feeCategory] += $remainingFee; // Sum up remaining fees
             }
         }
-
-
-        // Fetch all available fee categories
-        $query_categories = "SELECT DISTINCT mfeecategory FROM morefee WHERE sid = '$id'";
+        $query_categories = "SELECT mfeecategory, SUM(amount) as total_amount FROM morefee WHERE sid = '$id' GROUP BY mfeecategory";
         $result_categories = mysqli_query($conn, $query_categories);
         $feeCategories = [];
 
         if (mysqli_num_rows($result_categories) > 0) {
             while ($category = mysqli_fetch_assoc($result_categories)) {
-                $feeCategories[] = htmlspecialchars($category['mfeecategory']);
+                $mfeecategory = $category['mfeecategory'];
+                $totalAmount = $category['total_amount']; // Use the summed total amount
+
+                // Fetch the sum of amounts already paid for this category from the fee_transaction table
+                $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
+                       WHERE sid = '$id' AND feecategory = '$mfeecategory'";
+                $result_paid = mysqli_query($conn, $query_paid);
+                $paid = mysqli_fetch_assoc($result_paid);
+                $totalPaid = $paid['total_paid'] ?? 0;
+
+                // Only add to the list if the total paid is less than the total fee amount
+                if ($totalPaid < $totalAmount) {
+                    $feeCategories[] = htmlspecialchars($mfeecategory);
+                }
             }
         }
     }
 }
+
+if (isset($_POST['processpaybtn'])) {
+    $receipt_code = uniqid('RC-', true); // Generates a unique receipt code
+    $payment_date = mysqli_real_escape_string($conn, string: $_POST['payment_date']);
+    $fee_categories = $_POST['fee_categories'] ?? [];
+    $amounts = $_POST['amounts'] ?? [];
+
+    foreach ($fee_categories as $category) {
+        $amount = mysqli_real_escape_string($conn, $amounts[$category]);
+        $query_insert = "INSERT INTO fee_transaction (sid, receipt_number, feecategory, amount, payment_date)
+                         VALUES ('$id', '$receipt_code', '$category', '$amount', '$payment_date')";
+        $inserting_paymentdata = mysqli_query($conn, $query_insert);
+    }
+    if ($inserting_paymentdata) {
+        echo '<script>alert("Payment processed successfully."); window.location.href="../collectfee.php";</script>';
+        exit();
+    } else {
+        echo '<script>alert("Error processing payment.");</script>';
+    }
+}
+
+
 
 
 
@@ -221,11 +254,11 @@ WHERE student.sid = '$id'";
                     <label>Fee Categories:</label><br>
                     <label>
                         <input type="checkbox" name="fee_categories[]" value="ProgramFee" onclick="toggleInput(this)"> Program Fee
-                    </label>
+                    </label><br>
                     <?php foreach ($feeCategories as $category): ?>
                         <label>
                             <input type="checkbox" name="fee_categories[]" value="<?php echo $category; ?>" onclick="toggleInput(this)"> <?php echo $category; ?>
-                        </label>
+                        </label><br>
                     <?php endforeach; ?>
                 </div>
                 <div id="amountInputs" class="paymentprocess_inputgroup"></div>
@@ -253,18 +286,12 @@ WHERE student.sid = '$id'";
                         }
                     }
                 </script>
-
-
-
-                <!-- <div class="paymentprocess_inputgroup">
-                    <label for="amount">Amount to Pay:</label>
-                    <input type="number" id="amount" class="paymentprocess_inputamount" name="amount" placeholder="Enter amount to pay" required>
-                </div> -->
-
                 <div>
                     total paying amount: <span id="total_paying_amount">calculate total amount</span>
                 </div>
-                <button type="submit" class="paymentprocess_inputpaybtn">Process Payment</button><br><br><br>
+                <button type="submit" name="processpaybtn" class="paymentprocess_inputpaybtn">Process Payment</button><br><br>
+
+                <a href="morefee.php?more=<?php echo $id; ?>" class="paymentprocess_inputpaybtn" style="display: inline-block; margin-top: 15px;">Add More Fees</a><br><br>
 
                 <button type="button" class="paymentprocess_inputpaybtn" onclick="confirmBack()">Back</button>
 

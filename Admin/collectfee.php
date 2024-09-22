@@ -1,12 +1,6 @@
 <?php
 
 include 'db/connection.php';
-
-// session_start(); // Start the session
-// $_SESSION['sid'] = $row['sid']; // Store the student ID in session
-
-
-
 // Fetch 
 $fetch_programnames = "SELECT * FROM program ORDER BY pname ASC";
 $program_result = mysqli_query($conn, $fetch_programnames);
@@ -81,6 +75,7 @@ $fetch_students = mysqli_query($conn, $select_student);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collect fee</title>
+    </style>
     <link rel="stylesheet" href="index.css">
 </head>
 <?php include 'dashhead.php'; ?>
