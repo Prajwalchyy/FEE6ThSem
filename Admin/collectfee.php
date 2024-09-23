@@ -136,8 +136,6 @@ $fetch_students = mysqli_query($conn, $select_student);
                         <th>Name</th>
                         <th>Contact</th>
                         <th>Faculty</th>
-                        <th>Fees Remaining</th>
-                        <th>Fees Paid</th>
                         <th>Add fee</th>
                         <th>Collect Fee</th>
                     </tr>
@@ -151,8 +149,6 @@ $fetch_students = mysqli_query($conn, $select_student);
                             <td><?php echo $row['sname']; ?></td>
                             <td><?php echo $row['scontact']; ?></td>
                             <td><?php echo $row['pname']; ?></td>
-                            <td>10000</td>
-                            <td>1000</td>
                             <td>
                                 <a href="actions/morefee.php?more=<?php echo $row['sid']; ?>" class="collectfee_collect">Add Fee</a>
                             </td>

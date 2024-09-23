@@ -132,7 +132,7 @@
     margin: 0;
 }
 
-.header_sidebar {
+.dashheader_sidebar {
     height: 100%;
     /* width: 250px; */
     width: 15%;
@@ -140,7 +140,7 @@
     background-color: #363631;
 }
 
-.header_sidebar a,
+.dashheader_sidebar a,
 p {
     padding: 20px 20px;
     text-decoration: none;
@@ -149,11 +149,11 @@ p {
     display: block;
 }
 
-.header_sidebar .header_sidebar_contents:hover {
+.dashheader_sidebar .dashheader_sidebar_contents:hover {
     background-color: #575757;
 }
 
-.header_sidebar .active {
+.dashheader_sidebar .active {
     background-color: #76bd2b;
 }
 
@@ -1159,3 +1159,169 @@ p {
         max-width: 100%;
     }
 }
+
+/* Feepaidhistory------------------------------------------------------------------------------------ */
+
+.feepaidhistory_body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    /* padding: 20px; */
+}
+
+.feepaidhistory_maincontents {
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+}
+
+.feepaidhistory_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.feepaidhistory_header h1 {
+    margin: 0;
+}
+
+.feepaidhistory_search_bar {
+    display: flex;
+    align-items: center;
+}
+
+.feepaidhistory_search_bar input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+}
+
+.feepaidhistory_search_bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.feepaidhistory_header a {
+    text-decoration: none;
+    color: white;
+    background-color: #375d5e;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.feepaidhistory_table_limit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.feepaidhistory_table_limit label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+.feepaidhistory_limit {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 60px;
+}
+.feepaidhistory_table_limit button {
+    padding: 5px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.feepaidhistory_table_limit button:hover {
+    background-color: #45a049;
+}
+
+
+.feepaidhistory_table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.feepaidhistory_table th,
+.feepaidhistory_table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.feepaidhistory_table th {
+    background-color: #f8f8f8;
+}
+
+.feepaidhistory_table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.feepaidhistory_action_buttons a {
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.feepaidhistory_update {
+    background-color: #007bff;
+    color: white;
+}
+
+.feepaidhistory_delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.feepaidhistory_detail {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.feepaidhistory_pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.feepaidhistory_pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.feepaidhistory_pagination a.active {
+    background-color: #0056b3;
+}
+
+.feepaidhistory_pagination a:hover {
+    background-color: #0056b3;
+}
+
+
+
+
