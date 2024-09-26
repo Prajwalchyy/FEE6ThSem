@@ -50,22 +50,21 @@ if (isset($_GET['pay'])) {
         $totalPaid_programfee = $fetch_sumof_programfee['total_paid'] ?? 0;
         $student_remaining_programfee = $student['sfee'] - $totalPaid_programfee;
 
-        // Calculate the fee per year or semester
+        
         $feePerTerm = $studenttotalprogramfee / $programpayplan;
 
-        // Calculate how many terms (years/semesters) have been fully paid
+       
         $paidTerms = floor($totalPaid_programfee / $feePerTerm);
         // $paidTerms = intdiv($totalPaid_programfee, $feePerTerm);
 
-        // Determine current term (year or semester)
+        
         $currentTerm = $paidTerms + 1;
 
-        // Check if there's partial payment for the next term
+        
         $paidForCurrentTerm = $totalPaid_programfee - ($paidTerms * $feePerTerm);
         $remainingForCurrentTerm = $feePerTerm - $paidForCurrentTerm;
 
-        //more fee
-        // Initialize an array to hold totals for each fee category
+        
         $remainingFees = []; // Initialize the array
 
         // $query_morefee = "SELECT * FROM morefee WHERE sid = '$id'";
@@ -77,7 +76,7 @@ if (isset($_GET['pay'])) {
             // $amount = $morefee['amount'];
             $totalFee = $morefee['total_fee'];
 
-            // Calculate total paid for this more fee category
+          
             $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
             WHERE sid = '$id' AND feecategory = '$feeCategory'";
 
@@ -89,12 +88,12 @@ if (isset($_GET['pay'])) {
             // Calculate remaining fee
             $remainingFee = $totalFee - $totalPaid;
 
-            // Only store if there is a remaining fee
+           
             if ($remainingFee > 0) {
                 if (!isset($remainingFees[$feeCategory])) {
-                    $remainingFees[$feeCategory] = 0; // Initialize if not set
+                    $remainingFees[$feeCategory] = 0; 
                 }
-                $remainingFees[$feeCategory] += $remainingFee; // Sum up remaining fees
+                $remainingFees[$feeCategory] += $remainingFee; 
             }
         }
         $query_categories = "SELECT mfeecategory, SUM(amount) as total_amount FROM morefee WHERE sid = '$id' GROUP BY mfeecategory";
@@ -106,7 +105,7 @@ if (isset($_GET['pay'])) {
                 $mfeecategory = $category['mfeecategory'];
                 $totalAmount = $category['total_amount']; // Use the summed total amount
 
-                // Fetch the sum of amounts already paid for this category from the fee_transaction table
+                
                 $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
                        WHERE sid = '$id' AND feecategory = '$mfeecategory'";
                 $result_paid = mysqli_query($conn, $query_paid);
@@ -131,32 +130,43 @@ if (isset($_POST['processpaybtn'])) {
     foreach ($fee_categories as $category) {
         $amount = mysqli_real_escape_string($conn, $amounts[$category]);
 
-        // Get the program fee from the student table
+        
     $programFeeQuery = "SELECT sfee FROM student WHERE sid = '$id'";
     $programFeeResult = mysqli_query($conn, $programFeeQuery);
     $programFeeData = mysqli_fetch_assoc($programFeeResult);
     $programFee = $programFeeData['sfee'] ?? 0;
 
-    // Initialize fee total for this category
     $feeTotalv2 = 0;
 
-    // Check if the category is "ProgramFee" and add it to the total
+  
     if ($category === 'ProgramFee') {
         $feeTotalv2 += $programFee;
     }
 
-    // Calculate total fee for the category
+    
     $totalFeeQuery = "SELECT SUM(amount) AS total_fee FROM morefee WHERE sid = '$id' AND mfeecategory = '$category'";
     $totalFeeResult = mysqli_query($conn, $totalFeeQuery);
     $totalFeeData = mysqli_fetch_assoc($totalFeeResult);
     $moreFeeTotal = $totalFeeData['total_fee'] ?? 0;
 
-    // Add the more fee total to the fee total for the current category
     $feeTotalv2 += $moreFeeTotal;
 
-    // Insert into fee_transaction with fetched total fee
+
+    $totaltransaction_count = "SELECT SUM(amount) AS feetotal_count FROM fee_transaction WHERE sid = '$id' AND feecategory = '$category'";
+    $totaltransaction_count_result = mysqli_query($conn, $totaltransaction_count);
+    $totaltransaction_count_data = mysqli_fetch_assoc($totaltransaction_count_result);
+    $totaltransaction_count = $totaltransaction_count_data['feetotal_count'] ?? 0;
+
+
+    $fee_fetchtotal = $feeTotalv2 - $totaltransaction_count;
+
+  
+
+    // $finalFeeFetchTotal = ($programFee + $moreFeeTotal) - $totalPaid;
+
+   
     $query_insert = "INSERT INTO fee_transaction (sid, receipt_number, feecategory, amount, payment_date, fee_fetchtotal)
-                     VALUES ('$id', '$receipt_code', '$category', '$amount', '$payment_date', '$feeTotalv2')";
+                     VALUES ('$id', '$receipt_code', '$category', '$amount', '$payment_date', ' $fee_fetchtotal')";
     $inserting_paymentdata = mysqli_query($conn, $query_insert);
     }
     if ($inserting_paymentdata) {

@@ -7,7 +7,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     $where = "WHERE sname LIKE '%$search%' OR senroll LIKE '%$search%' OR scontact LIKE '%$search%'";
 }
 
-//page table limit
+
 $default_limit = 10;
 
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : $default_limit;
@@ -18,7 +18,7 @@ if ($limit < 1) {
 
 
 
-//limit logic of table
+
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) {
     $page = 1;

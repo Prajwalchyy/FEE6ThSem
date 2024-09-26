@@ -7,7 +7,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     $where = "WHERE s.senroll LIKE '%$search%' OR s.sname LIKE '%$search%' OR ft.receipt_number LIKE '%$search%'";
 }
 
-// Page table limit
+
 $default_limit = 10;
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : $default_limit;
 
@@ -15,7 +15,7 @@ if ($limit < 1) {
     $limit = $default_limit;
 }
 
-// Limit logic of table
+
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) {
     $page = 1;
@@ -24,7 +24,7 @@ $offset = ($page - 1) * $limit;
 
 $counter = ($page - 1) * $limit + 1;
 
-// Fetch total records for pagination
+
 // $total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM fee_transaction ft JOIN student s ON ft.sid = s.sid $where");
 $total_result = mysqli_query($conn, "
     SELECT COUNT(DISTINCT receipt_number) AS total 
@@ -38,7 +38,7 @@ $total_records = $total_row['total'];
 
 $total_pages = ceil($total_records / $limit);
 
-// Fetch records from fee_transaction table
+
 $select_transaction = "
     SELECT ft.receipt_number, SUM(ft.amount) AS total_amount, MAX(ft.payment_date) AS payment_date, s.senroll, s.sname
     FROM fee_transaction ft

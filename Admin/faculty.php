@@ -1,6 +1,6 @@
 <?php include 'db/connection.php';
 
-//search query
+
 $where = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
@@ -9,7 +9,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 }
 
 
-//page table limit
+
 $default_limit = 5;
 
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : $default_limit;
@@ -20,7 +20,7 @@ if ($limit < 1) {
 
 
 
-//limit logic of table
+
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) {
     $page = 1;
@@ -28,7 +28,7 @@ if ($page < 1) {
 $offset = ($page - 1) * $limit;
 
 
-//COUNT 
+
 $counter = ($page - 1) * $limit + 1;
 $total_result = mysqli_query($conn, "SELECT COUNT(*) as total FROM program $where");
 $total_row = mysqli_fetch_assoc($total_result);
@@ -37,12 +37,12 @@ $total_records = $total_row['total'];
 $total_pages = ceil($total_records / $limit);
 
 
-// sorting logic
+
 $sort_order = isset($_GET['order']) && $_GET['order'] == 'asc' ? 'asc' : 'desc';
 $new_sort_order = $sort_order === 'asc' ? 'desc' : 'asc';
 
 
-//fetching
+
 // $select = "SELECT * FROM program $where ORDER BY pname $sort_order LIMIT $limit OFFSET $offset";
 $select = "SELECT * FROM program $where ORDER BY pname LIMIT $limit OFFSET $offset";
 $result = mysqli_query($conn, $select);

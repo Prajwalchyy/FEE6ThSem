@@ -25,7 +25,7 @@ $query = "
 $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 
-// Fetch fee details
+
 $fee_query = "
     SELECT * 
     FROM fee_transaction 
