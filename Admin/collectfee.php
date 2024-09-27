@@ -1,6 +1,18 @@
 <?php
 
 include 'db/connection.php';
+
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+if (isset($_GET['pay'])) {
+    $_SESSION['pay_student_id'] = $_GET['pay'];
+    header("Location: actions/paymentprocess.php");
+    exit();
+}
 // Fetch 
 $fetch_programnames = "SELECT * FROM program ORDER BY pname ASC";
 $program_result = mysqli_query($conn, $fetch_programnames);
@@ -86,8 +98,9 @@ $fetch_students = mysqli_query($conn, $select_student);
             <div class="collectfee_heading">
                 <h1>Fees</h1>
             </div>
-            <div class="collectfee_centre">
-                <form method="GET" action="">
+            <form method="GET" action="">
+                <div class="collectfee_centre">
+
                     <div class="collectfee_search">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="search" placeholder="Enter name" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
@@ -108,8 +121,8 @@ $fetch_students = mysqli_query($conn, $select_student);
                         <button class="collectfee_filter" type="submit">Filter</button>
                         <button class="collectfee_reset" type="button" onclick="window.location.href='collectfee.php'">Reset</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
 
         </div>
         <div class="collectfee_table_limit">
@@ -149,10 +162,11 @@ $fetch_students = mysqli_query($conn, $select_student);
                             <td><?php echo $row['sname']; ?></td>
                             <td><?php echo $row['scontact']; ?></td>
                             <td><?php echo $row['pname']; ?></td>
-                            <td><?php echo $row['sbatchyear'];?></td>
+                            <td><?php echo $row['sbatchyear']; ?></td>
                             <td>
-                                <a href="actions/paymentprocess.php?pay=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
+                                <a href="?pay=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
                             </td>
+
 
                         </tr>
                     <?php

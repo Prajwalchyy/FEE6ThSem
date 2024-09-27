@@ -2,9 +2,8 @@
 
 .dashview_body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
 }
 
 .dashview_dashboard {
@@ -55,8 +54,8 @@
 
 .dashview_card:hover {
     background-color: #1976D2;
-    transform: translateY(-5px) scale(1.05); 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .dashview_card h2 {
@@ -228,6 +227,7 @@ p {
     margin-right: 10px;
     font-weight: bold;
 }
+
 .studentlist_limit {
     padding: 5px 10px;
     border: 1px solid #ccc;
@@ -235,6 +235,7 @@ p {
     margin-right: 10px;
     width: 60px;
 }
+
 .studentlist_table_limit button {
     padding: 5px 15px;
     background-color: #4CAF50;
@@ -347,7 +348,7 @@ p {
     font-size: large;
 }
 
-.addstudent_contents p{
+.addstudent_contents p {
     color: black;
     font-size: 22px;
     height: auto;
@@ -357,7 +358,7 @@ p {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     margin-bottom: 10px;
 }
 
@@ -371,7 +372,7 @@ p {
     display: block;
     margin: auto;
     border: none;
-    color: white; 
+    color: white;
     border-radius: 4px;
 }
 
@@ -406,7 +407,7 @@ p {
     font-size: large;
 }
 
-.updatestudent_contents p{
+.updatestudent_contents p {
     color: black;
     font-size: 22px;
     height: auto;
@@ -416,7 +417,7 @@ p {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     margin-bottom: 10px;
 }
 
@@ -430,7 +431,7 @@ p {
     display: block;
     margin: auto;
     border: none;
-    color: white; 
+    color: white;
     border-radius: 4px;
 }
 
@@ -469,8 +470,11 @@ p {
 }
 
 .collectfee_centre {
-    display: flex;
+    margin-top: 23px;
     margin-left: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .collectfee_search,
@@ -490,8 +494,9 @@ p {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    /* width: 300px; */
 }
+
+
 
 .collectfee_search input,
 .collectfee_faculty select,
@@ -516,6 +521,7 @@ p {
 .collectfee_reset {
     background-color: #dc3545;
 }
+
 .collectfee_table_limit {
     display: flex;
     align-items: center;
@@ -535,6 +541,7 @@ p {
     margin-right: 10px;
     width: 60px;
 }
+
 .collectfee_table_limit button {
     padding: 5px 15px;
     background-color: #4CAF50;
@@ -621,8 +628,10 @@ p {
     justify-content: center;
     align-items: center;
     /* height: 100vh; */
-    height: auto; /* Allow height to adjust based on content */
-    overflow: visible; /* Ensure all content is shown */
+    height: auto;
+    /* Allow height to adjust based on content */
+    overflow: visible;
+    /* Ensure all content is shown */
 }
 
 .paymentprocess_parentdiv {
@@ -636,19 +645,19 @@ p {
 .paymentprocess_parentdiv h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #4CAF50; 
+    color: #4CAF50;
 }
 
 .paymentprocess_parentdiv h3 {
-    color: #4CAF50; 
+    color: #4CAF50;
     margin-bottom: 10px;
 }
 
 .paymentprocess_parentdiv section {
     margin-bottom: 20px;
-    padding: 20px; 
+    padding: 20px;
     background-color: #f0f0f0;
-    border-radius: 8px; 
+    border-radius: 8px;
 }
 
 .paymentprocess_infogroup {
@@ -678,7 +687,7 @@ p {
 .paymentprocess_inputpaybtn {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s;
@@ -687,12 +696,12 @@ p {
 .paymentprocess_inputdate:focus,
 .paymentprocess_inputamount:focus,
 .paymentprocess_inputpaybtn:focus {
-    border-color: #4CAF50; 
+    border-color: #4CAF50;
     outline: none;
 }
 
 .paymentprocess_inputpaybtn {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
     color: #fff;
     font-size: 16px;
     border: none;
@@ -701,9 +710,27 @@ p {
     transition: background-color 0.3s;
 }
 
-.paymentprocess_inputpaybtn:hover {
-    background-color: #45a049;
+
+
+.apaymentprocess_inputpaybtn {
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    width: 93%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
 }
+
+.paymentprocess_inputpaybtn:hover,
+.apaymentprocess_inputpaybtn:hover {
+    background-color: #69af6c;
+}X  
 
 /* MORE FEE------------------------------------------------------------------------------------ */
 .morefee_body {
@@ -727,19 +754,19 @@ p {
 .morefee_parentdiv h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #4CAF50; 
+    color: #4CAF50;
 }
 
 .morefee_parentdiv h3 {
-    color: #4CAF50; 
+    color: #4CAF50;
     margin-bottom: 10px;
 }
 
 .morefee_parentdiv section {
     margin-bottom: 20px;
-    padding: 20px; 
+    padding: 20px;
     background-color: #f0f0f0;
-    border-radius: 8px; 
+    border-radius: 8px;
 }
 
 .morefee_infogroup {
@@ -769,7 +796,7 @@ p {
 .morefee_inputpaybtn {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s;
@@ -778,12 +805,12 @@ p {
 .morefee_option:focus,
 .morefee_inputamount:focus,
 .morefee_inputpaybtn:focus {
-    border-color: #4CAF50; 
+    border-color: #4CAF50;
     outline: none;
 }
 
 .morefee_inputpaybtn {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
     color: #fff;
     font-size: 16px;
     border: none;
@@ -913,7 +940,7 @@ p {
 }
 
 .faculty_table th a,
-.faculty_table td a{
+.faculty_table td a {
     text-decoration: none;
     color: black;
 }
@@ -994,9 +1021,11 @@ p {
 .addfaculty_pbased {
     margin-bottom: 15px;
 }
+
 .addfaculty_pbased label {
     margin-right: 10px;
 }
+
 .addfaculty_pbased input[type="radio"] {
     margin-right: 5px;
 }
@@ -1075,7 +1104,8 @@ p {
 .changepass-body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #eef2f6;
-    width: 100%; /* Full page width */
+    width: 100%;
+    /* Full page width */
     margin: 0;
     padding: 0;
 }
@@ -1084,8 +1114,10 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full height */
-    width: 100%; /* Full width */
+    height: 100vh;
+    /* Full height */
+    width: 100%;
+    /* Full width */
     padding: 0 20px;
 }
 
@@ -1095,14 +1127,17 @@ p {
     padding: 35px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px; /* Limit form container width */
+    max-width: 500px;
+    /* Limit form container width */
     text-align: center;
-    border-top: 5px solid #27496d; /* Accent top border */
+    border-top: 5px solid #27496d;
+    /* Accent top border */
 }
 
 .change-password-container h2 {
     margin-bottom: 30px;
-    color: #27496d; /* Deep blue for headings */
+    color: #27496d;
+    /* Deep blue for headings */
     font-size: 24px;
 }
 
@@ -1114,7 +1149,8 @@ p {
 .chnage-password-form-group label {
     display: block;
     margin-bottom: 8px;
-    color: #27496d; /* Label in blue tone */
+    color: #27496d;
+    /* Label in blue tone */
     font-size: 16px;
 }
 
@@ -1128,13 +1164,16 @@ p {
 }
 
 .chnage-password-form-group input:focus {
-    border-color: #00909e; /* Slightly bright blue-green on focus */
+    border-color: #00909e;
+    /* Slightly bright blue-green on focus */
     outline: none;
-    box-shadow: 0 0 8px rgba(0, 144, 158, 0.3); /* Subtle shadow */
+    box-shadow: 0 0 8px rgba(0, 144, 158, 0.3);
+    /* Subtle shadow */
 }
 
 .chnage-password-form-group input[type="submit"] {
-    background-color: #00909e; /* Button in blue-green */
+    background-color: #00909e;
+    /* Button in blue-green */
     color: white;
     border: none;
     cursor: pointer;
@@ -1146,13 +1185,16 @@ p {
 }
 
 .chnage-password-form-group input[type="submit"]:hover {
-    background-color: #017a82; /* Darker blue-green on hover */
+    background-color: #017a82;
+    /* Darker blue-green on hover */
 }
 
 .error-message {
-    color: #ff4d4d; /* Bright red for error message */
+    color: #ff4d4d;
+    /* Bright red for error message */
     font-size: 14px;
-    display: none; /* Initially hidden */
+    display: none;
+    /* Initially hidden */
     margin-top: 12px;
 }
 
@@ -1237,6 +1279,7 @@ p {
     margin-right: 10px;
     font-weight: bold;
 }
+
 .feepaidhistory_limit {
     padding: 5px 10px;
     border: 1px solid #ccc;
@@ -1244,6 +1287,7 @@ p {
     margin-right: 10px;
     width: 60px;
 }
+
 .feepaidhistory_table_limit button {
     padding: 5px 15px;
     background-color: #4CAF50;
@@ -1328,7 +1372,3 @@ p {
 .feepaidhistory_pagination a:hover {
     background-color: #0056b3;
 }
-
-
-
-

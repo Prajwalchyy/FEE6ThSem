@@ -2,6 +2,10 @@
 session_start();
 
 include '../db/connection.php';
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
 // $receipt_number = isset($_GET['receiptfetcher']) ? mysqli_real_escape_string($conn, $_GET['receiptfetcher']) : '';
 $receipt_number = isset($_SESSION['receipt_number']) ? mysqli_real_escape_string($conn, $_SESSION['receipt_number']) : '';

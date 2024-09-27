@@ -1,6 +1,12 @@
 <?php
 include 'db/connection.php';
 
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $where = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);

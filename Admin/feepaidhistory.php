@@ -1,13 +1,13 @@
 <?php
 session_start();
 include 'db/connection.php';
-
-//setting up session
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
 if (isset($_POST['receipt_databtn'])) {
     $_SESSION['receipt_number'] = $_POST['receipt_number'];
-
     header('Location: actions/receipt.php');
-    
 }
 
 $where = "";

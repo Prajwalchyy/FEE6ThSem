@@ -2,26 +2,29 @@
 
 include '../db/connection.php';
 session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
 if (isset($_SESSION['success_message'])) {
     echo "<script>alert('" . $_SESSION['success_message'] . "');</script>";
     unset($_SESSION['success_message']);
 }
 
-if (isset($_GET['pay'])) {
+// if (isset($_GET['pay'])) {
 
-    //fetch student information
-    $id = mysqli_real_escape_string($conn, $_GET['pay']);
+if (isset($_SESSION['pay_student_id'])) {
+    $student_id = $_SESSION['pay_student_id'];
 
-
-
-
+    // $id = mysqli_real_escape_string($conn, $_GET['pay']);
+    $student_iid = mysqli_real_escape_string($conn, $student_id);
     $query = "SELECT student.*, morefee.*, program.*, fee_transaction.*
     FROM student
     LEFT JOIN morefee ON student.sid = morefee.sid
     LEFT JOIN program ON student.pid = program.pid
     LEFT JOIN fee_transaction ON morefee.sid = fee_transaction.sid
-    WHERE student.sid = '$id'";
+    WHERE student.sid = '$student_iid'";
 
     $result = mysqli_query($conn, $query);
     $student = mysqli_fetch_assoc($result);
@@ -44,31 +47,31 @@ if (isset($_GET['pay'])) {
         //student remaining program fee
         // $studentId = $student['sid'];
         $sumof_programfee = "SELECT SUM(amount) as total_paid FROM fee_transaction 
-          WHERE sid = '$id' AND feecategory = 'ProgramFee'";
+          WHERE sid = '$student_iid' AND feecategory = 'ProgramFee'";
         $result_sumof_programfee = mysqli_query($conn, $sumof_programfee);
         $fetch_sumof_programfee = mysqli_fetch_assoc($result_sumof_programfee);
         $totalPaid_programfee = $fetch_sumof_programfee['total_paid'] ?? 0;
         $student_remaining_programfee = $student['sfee'] - $totalPaid_programfee;
 
-        
+
         $feePerTerm = $studenttotalprogramfee / $programpayplan;
 
-       
+
         $paidTerms = floor($totalPaid_programfee / $feePerTerm);
         // $paidTerms = intdiv($totalPaid_programfee, $feePerTerm);
 
-        
+
         $currentTerm = $paidTerms + 1;
 
-        
+
         $paidForCurrentTerm = $totalPaid_programfee - ($paidTerms * $feePerTerm);
         $remainingForCurrentTerm = $feePerTerm - $paidForCurrentTerm;
 
-        
+
         $remainingFees = []; // Initialize the array
 
         // $query_morefee = "SELECT * FROM morefee WHERE sid = '$id'";
-        $query_morefee = "SELECT mfeecategory, SUM(amount) as total_fee FROM morefee WHERE sid = '$id' GROUP BY mfeecategory";
+        $query_morefee = "SELECT mfeecategory, SUM(amount) as total_fee FROM morefee WHERE sid = '$student_iid' GROUP BY mfeecategory";
         $result_morefee = mysqli_query($conn, $query_morefee);
 
         while ($morefee = mysqli_fetch_assoc($result_morefee)) {
@@ -76,9 +79,9 @@ if (isset($_GET['pay'])) {
             // $amount = $morefee['amount'];
             $totalFee = $morefee['total_fee'];
 
-          
+
             $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
-            WHERE sid = '$id' AND feecategory = '$feeCategory'";
+            WHERE sid = '$student_iid' AND feecategory = '$feeCategory'";
 
             $result_paid = mysqli_query($conn, $query_paid);
 
@@ -88,15 +91,15 @@ if (isset($_GET['pay'])) {
             // Calculate remaining fee
             $remainingFee = $totalFee - $totalPaid;
 
-           
+
             if ($remainingFee > 0) {
                 if (!isset($remainingFees[$feeCategory])) {
-                    $remainingFees[$feeCategory] = 0; 
+                    $remainingFees[$feeCategory] = 0;
                 }
-                $remainingFees[$feeCategory] += $remainingFee; 
+                $remainingFees[$feeCategory] += $remainingFee;
             }
         }
-        $query_categories = "SELECT mfeecategory, SUM(amount) as total_amount FROM morefee WHERE sid = '$id' GROUP BY mfeecategory";
+        $query_categories = "SELECT mfeecategory, SUM(amount) as total_amount FROM morefee WHERE sid = '$student_iid' GROUP BY mfeecategory";
         $result_categories = mysqli_query($conn, $query_categories);
         $feeCategories = [];
 
@@ -105,9 +108,9 @@ if (isset($_GET['pay'])) {
                 $mfeecategory = $category['mfeecategory'];
                 $totalAmount = $category['total_amount']; // Use the summed total amount
 
-                
+
                 $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
-                       WHERE sid = '$id' AND feecategory = '$mfeecategory'";
+                       WHERE sid = '$student_iid' AND feecategory = '$mfeecategory'";
                 $result_paid = mysqli_query($conn, $query_paid);
                 $paid = mysqli_fetch_assoc($result_paid);
                 $totalPaid = $paid['total_paid'] ?? 0;
@@ -130,46 +133,47 @@ if (isset($_POST['processpaybtn'])) {
     foreach ($fee_categories as $category) {
         $amount = mysqli_real_escape_string($conn, $amounts[$category]);
 
-        
-    $programFeeQuery = "SELECT sfee FROM student WHERE sid = '$id'";
-    $programFeeResult = mysqli_query($conn, $programFeeQuery);
-    $programFeeData = mysqli_fetch_assoc($programFeeResult);
-    $programFee = $programFeeData['sfee'] ?? 0;
 
-    $feeTotalv2 = 0;
+        $programFeeQuery = "SELECT sfee FROM student WHERE sid = '$student_iid'";
+        $programFeeResult = mysqli_query($conn, $programFeeQuery);
+        $programFeeData = mysqli_fetch_assoc($programFeeResult);
+        $programFee = $programFeeData['sfee'] ?? 0;
 
-  
-    if ($category === 'ProgramFee') {
-        $feeTotalv2 += $programFee;
-    }
-
-    
-    $totalFeeQuery = "SELECT SUM(amount) AS total_fee FROM morefee WHERE sid = '$id' AND mfeecategory = '$category'";
-    $totalFeeResult = mysqli_query($conn, $totalFeeQuery);
-    $totalFeeData = mysqli_fetch_assoc($totalFeeResult);
-    $moreFeeTotal = $totalFeeData['total_fee'] ?? 0;
-
-    $feeTotalv2 += $moreFeeTotal;
+        $feeTotalv2 = 0;
 
 
-    $totaltransaction_count = "SELECT SUM(amount) AS feetotal_count FROM fee_transaction WHERE sid = '$id' AND feecategory = '$category'";
-    $totaltransaction_count_result = mysqli_query($conn, $totaltransaction_count);
-    $totaltransaction_count_data = mysqli_fetch_assoc($totaltransaction_count_result);
-    $totaltransaction_count = $totaltransaction_count_data['feetotal_count'] ?? 0;
+        if ($category === 'ProgramFee') {
+            $feeTotalv2 += $programFee;
+        }
 
 
-    $fee_fetchtotal = $feeTotalv2 - $totaltransaction_count;
+        $totalFeeQuery = "SELECT SUM(amount) AS total_fee FROM morefee WHERE sid = '$student_iid' AND mfeecategory = '$category'";
+        $totalFeeResult = mysqli_query($conn, $totalFeeQuery);
+        $totalFeeData = mysqli_fetch_assoc($totalFeeResult);
+        $moreFeeTotal = $totalFeeData['total_fee'] ?? 0;
 
-  
+        $feeTotalv2 += $moreFeeTotal;
 
-    // $finalFeeFetchTotal = ($programFee + $moreFeeTotal) - $totalPaid;
 
-   
-    $query_insert = "INSERT INTO fee_transaction (sid, receipt_number, feecategory, amount, payment_date, fee_fetchtotal)
-                     VALUES ('$id', '$receipt_code', '$category', '$amount', '$payment_date', ' $fee_fetchtotal')";
-    $inserting_paymentdata = mysqli_query($conn, $query_insert);
+        $totaltransaction_count = "SELECT SUM(amount) AS feetotal_count FROM fee_transaction WHERE sid = '$student_iid' AND feecategory = '$category'";
+        $totaltransaction_count_result = mysqli_query($conn, $totaltransaction_count);
+        $totaltransaction_count_data = mysqli_fetch_assoc($totaltransaction_count_result);
+        $totaltransaction_count = $totaltransaction_count_data['feetotal_count'] ?? 0;
+
+
+        $fee_fetchtotal = $feeTotalv2 - $totaltransaction_count;
+
+
+
+        // $finalFeeFetchTotal = ($programFee + $moreFeeTotal) - $totalPaid;
+
+
+        $query_insert = "INSERT INTO fee_transaction (sid, receipt_number, feecategory, amount, payment_date, fee_fetchtotal)
+                     VALUES ('$student_iid', '$receipt_code', '$category', '$amount', '$payment_date', ' $fee_fetchtotal')";
+        $inserting_paymentdata = mysqli_query($conn, $query_insert);
     }
     if ($inserting_paymentdata) {
+        $_SESSION['receipt_number'] = $receipt_code;
         echo '<script>alert("Payment processed successfully."); window.location.href="../actions/receipt.php?receiptfetcher=' . urlencode($receipt_code) . '";</script>';
         exit();
     } else {
@@ -231,6 +235,15 @@ if (isset($_POST['processpaybtn'])) {
                 <label>Program Payment Plan <?php echo htmlspecialchars($student['sfeeplan']) ?></label>
                 <span><?php echo htmlspecialchars($programpayplan) ?></span>
             </div>
+
+            <?php
+            if ($student['sfeeplan'] == 'yearly') {
+                $yearorsemester = 'year';
+            } else if ($student['sfeeplan'] == 'semester') {
+                $yearorsemester = 'semester';
+            }
+            ?>
+
             <div class="paymentprocess_infogroup">
                 <label>Program Total Fee:</label>
                 <span>RS <?php echo htmlspecialchars(number_format($studenttotalprogramfee)); ?></span>
@@ -245,12 +258,12 @@ if (isset($_POST['processpaybtn'])) {
             </div>
             <div class="paymentprocess_infogroup">
 
-                <label>Fee of <?php echo $student['pbased'] ?> <?php echo $currentTerm ?>:</label>
+                <label>Fee of <?php echo $yearorsemester ?> <?php echo $currentTerm ?>:</label>
                 <span>RS <?php echo htmlspecialchars(number_format($feePerTerm)); ?></span>
             </div>
 
             <div class="paymentprocess_infogroup">
-                <label> Remaining Fee of <?php echo $student['pbased'] ?> <?php echo $currentTerm ?>:</label>
+                <label> Remaining Fee of <?php echo $yearorsemester ?> <?php echo $currentTerm ?>:</label>
                 <span>RS <?php echo htmlspecialchars(number_format($remainingForCurrentTerm)); ?></span>
             </div>
 
@@ -310,7 +323,7 @@ if (isset($_POST['processpaybtn'])) {
                 </div> -->
                 <button type="submit" name="processpaybtn" class="paymentprocess_inputpaybtn">Process Payment</button><br><br>
 
-                <a href="morefee.php?more=<?php echo $id; ?>" class="paymentprocess_inputpaybtn" style="display: inline-block; margin-top: 15px;">Add More Fees</a><br><br>
+                <a href="morefee.php?more=<?php echo $student_iid; ?>" class="apaymentprocess_inputpaybtn">Add More Fees</a><br><br>
 
                 <button type="button" class="paymentprocess_inputpaybtn" onclick="confirmBack()">Back</button>
 

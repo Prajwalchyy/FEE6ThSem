@@ -1,6 +1,10 @@
 <?php include 'db/connection.php';
 
 session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
 if (isset($_POST['faddbutton'])) {
     $program_name = mysqli_real_escape_string($conn, $_POST['programname']);

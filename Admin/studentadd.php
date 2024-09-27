@@ -1,6 +1,10 @@
 <?php include 'db/connection.php';
 
 session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
 // $fetch_programnames = "SELECT pname FROM program ORDER BY pname ASC";
 $fetch_program_all = "SELECT * FROM program ORDER BY pname ASC";
