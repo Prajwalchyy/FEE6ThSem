@@ -44,9 +44,9 @@ $counter = ($page - 1) * $limit + 1;
 $total_result = mysqli_query($conn, "
     SELECT COUNT(DISTINCT receipt_number) AS total 
     FROM fee_transaction ft 
-    JOIN student s ON ft.sid = s.sid 
-    $where
-");
+    JOIN student s ON ft.sid = s.sid
+    WHERE ft.sid = '$student_id' $where
+");//logic is set for pegination to only work for loginstudent lists by $student_id
 
 $total_row = mysqli_fetch_assoc($total_result);
 $total_records = $total_row['total'];
