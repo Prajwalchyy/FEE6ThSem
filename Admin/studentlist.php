@@ -104,6 +104,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                         <th>Enroll No</th>
                         <th>Name</th>
                         <th>Contact</th>
+                        <th>Batch</th>
                         <th>Faculty</th>
                         <th>Action</th>
                         <th>Detail</th>
@@ -118,6 +119,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                             <td><?php echo $row['senroll']; ?></td>
                             <td><?php echo $row['sname']; ?></td>
                             <td><?php echo $row['scontact']; ?></td>
+                            <td><?php echo $row['sbatchyear']; ?></td>
                             <td><?php echo $row['pname']; ?></td>
                             <td class="studentlist_action_buttons">
                                 <a href="actions/studentupdate.php?update=<?php echo $row['sid']; ?>" class="studentlist_update">Update</a>

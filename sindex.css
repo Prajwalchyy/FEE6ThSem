@@ -1,0 +1,579 @@
+/* STUDENT LOGIN ..................................................*/
+
+.alogin-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(33, 220, 195);
+}
+
+.login-middiv {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.login-middiv h2 {
+    color: #ba9494;
+    text-align: center;
+}
+
+.login-middiv label {
+    color: #555;
+}
+
+.login-middiv .adinput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.aloginbtn {
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    background-color: rgb(90, 61, 117);
+    padding: 10px;
+    font-size: medium;
+    display: block;
+    margin: auto;
+}
+
+.aloginbtn:hover {
+    background-color: rgb(218, 122, 122);
+}
+
+
+/* changepass--------------------------------------------------------------------------------- */
+.changepass-body {
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-family: Arial, sans-serif;
+    background-color: #eef2f6;
+    width: 100%; 
+    margin: 0;
+    padding: 0;
+}
+
+.changepass-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height */
+    width: 100%; /* Full width */
+    padding: 0 20px;
+}
+
+.change-password-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 35px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px; /* Limit form container width */
+    text-align: center;
+    border-top: 5px solid #27496d; /* Accent top border */
+}
+
+.change-password-container h2 {
+    margin-bottom: 30px;
+    color: #27496d; /* Deep blue for headings */
+    font-size: 24px;
+}
+
+.chnage-password-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.chnage-password-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #27496d; /* Label in blue tone */
+    font-size: 16px;
+}
+
+.chnage-password-form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d9e6;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.chnage-password-form-group input:focus {
+    border-color: #00909e; /* Slightly bright blue-green on focus */
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 144, 158, 0.3); /* Subtle shadow */
+}
+
+.chnage-password-form-group input[type="submit"] {
+    background-color: #00909e; /* Button in blue-green */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    padding: 14px;
+    transition: background-color 0.3s;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.chnage-password-form-group input[type="submit"]:hover {
+    background-color: #017a82; /* Darker blue-green on hover */
+}
+
+.error-message {
+    color: #ff4d4d; /* Bright red for error message */
+    font-size: 14px;
+    display: none; /* Initially hidden */
+    margin-top: 12px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .change-password-container {
+        max-width: 100%;
+    }
+}
+
+
+/* Dashboardindex student_________________________________________________ */
+.dashview_body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.dashview_dashboard {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+}
+
+.dashview_dashboard-title {
+    text-align: center;
+    color: #4A4A4A;
+    margin-bottom: 20px;
+}
+
+.dashview_admin-card {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.dashview_cards-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.dashview_card {
+    background-color: #2196F3;
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.dashview_card:hover {
+    background-color: #1976D2;
+    transform: translateY(-5px) scale(1.05); 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.dashview_card h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.dashview_card p {
+    font-size: 24px;
+    margin: 10px 0 0;
+}
+
+.dashview_time-container {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+    color: #4A4A4A;
+}
+
+/* DASHHEADER SIDEBAR ........................................................................*/
+
+.dashhead_body {
+    background-color: rgb(213, 237, 233);
+    padding: 0;
+    margin: 0;
+}
+
+.dashheader_sidebar {
+    height: 100%;
+    /* width: 250px; */
+    width: 15%;
+    position: fixed;
+    background-color: #363631;
+}
+
+.dashheader_sidebar a,
+p {
+    padding: 20px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+}
+
+.dashheader_sidebar .dashheader_sidebar_contents:hover {
+    background-color: #575757;
+}
+
+.dashheader_sidebar .active {
+    background-color: #76bd2b;
+}
+
+
+/* student list .............................................................................. */
+
+.Student_list_body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    /* padding: 20px; */
+}
+
+.studentlist_maincontents {
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+}
+
+.studentlist_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.studentlist_header h1 {
+    margin: 0;
+}
+
+.student_search_bar {
+    display: flex;
+    align-items: center;
+}
+
+.student_search_bar input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+}
+
+.student_search_bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.studentlist_header a {
+    text-decoration: none;
+    color: white;
+    background-color: #375d5e;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.studentlist_table_limit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.studentlist_table_limit label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+.studentlist_limit {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 60px;
+}
+.studentlist_table_limit button {
+    padding: 5px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.studentlist_table_limit button:hover {
+    background-color: #45a049;
+}
+
+
+.studentlist_table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.studentlist_table th,
+.studentlist_table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.studentlist_table th {
+    background-color: #f8f8f8;
+}
+
+.studentlist_table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.studentlist_action_buttons a {
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.studentlist_update {
+    background-color: #007bff;
+    color: white;
+}
+
+.studentlist_delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.studentlist_detail {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.studentlist_pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.studentlist_pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.studentlist_pagination a.active {
+    background-color: #0056b3;
+}
+
+.studentlist_pagination a:hover {
+    background-color: #0056b3;
+}
+
+/* Sreceipthistory------------------------------------------------------------------------------------ */
+
+.feepaidhistory_body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    /* padding: 20px; */
+}
+
+.feepaidhistory_maincontents {
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+}
+
+.feepaidhistory_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+
+.feepaidhistory_header h1 {
+    margin: 0;
+}
+
+/* .feepaidhistory_search_bar {
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+} */
+
+
+/* .feepaidhistory_search_bar input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 400px;
+    flex: 1;
+} */
+
+/* .feepaidhistory_search_bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+} */
+
+.feepaidhistory_header a {
+    text-decoration: none;
+    color: white;
+    background-color: #375d5e;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.feepaidhistory_table_limit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.feepaidhistory_table_limit label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+.feepaidhistory_limit {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 60px;
+}
+.feepaidhistory_table_limit button {
+    padding: 5px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.feepaidhistory_table_limit button:hover {
+    background-color: #45a049;
+}
+
+
+.feepaidhistory_table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.feepaidhistory_table th,
+.feepaidhistory_table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.feepaidhistory_table th {
+    background-color: #f8f8f8;
+}
+
+.feepaidhistory_table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.feepaidhistory_action_buttons a {
+    text-decoration: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.feepaidhistory_update {
+    background-color: #007bff;
+    color: white;
+}
+
+.feepaidhistory_delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.feepaidhistory_detail {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.feepaidhistory_pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.feepaidhistory_pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.feepaidhistory_pagination a.active {
+    background-color: #0056b3;
+}
+
+.feepaidhistory_pagination a:hover {
+    background-color: #0056b3;
+}

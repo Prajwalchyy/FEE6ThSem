@@ -13,7 +13,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <body class="dashhead_body">
 <div class="dashheader_sidebar">
      <p>STUDENT FEE MANAGEMENT</p>
-        <a href="dashboardview.php"class="dashheader_sidebar_contents <?php if ($current_page == 'dashboardview.php') { echo 'active'; } ?>">Dashboard</a>
+        <a href="index.php"class="dashheader_sidebar_contents <?php if ($current_page == 'index.php') { echo 'active'; } ?>">Dashboard</a>
     <a href="studentlist.php" class="dashheader_sidebar_contents <?php if ($current_page == 'studentlist.php') { echo 'active'; } ?>">Student Management</a>
     <a href="faculty.php" class="dashheader_sidebar_contents <?php if ($current_page == 'faculty.php') { echo 'active'; } ?>">Programs</a>
     <a href="collectfee.php" class="dashheader_sidebar_contents <?php if ($current_page == 'collectfee.php') { echo 'active'; } ?>">Collect Fee</a>

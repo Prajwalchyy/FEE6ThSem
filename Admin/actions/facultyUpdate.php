@@ -1,7 +1,7 @@
 <?php
 include '../db/connection.php';
 
-//fetching data to show in update form
+
 if (isset($_GET['update'])) {
     $id = mysqli_real_escape_string($conn, $_GET['update']);
     $query = "SELECT * FROM program WHERE pid = '$id'";

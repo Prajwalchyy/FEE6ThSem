@@ -93,7 +93,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                         <input type="text" id="name" name="search" placeholder="Enter name" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                     </div>
                     <div class="collectfee_faculty">
-                        <label for="faculty">Grade</label>
+                        <label for="faculty">Program</label>
                         <select id="faculty" name="faculty">
                             <option>Select Program</option>
                             <?php
@@ -136,7 +136,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                         <th>Name</th>
                         <th>Contact</th>
                         <th>Faculty</th>
-                        <th>Add fee</th>
+                        <th>Batch</th>
                         <th>Collect Fee</th>
                     </tr>
                 </thead>
@@ -149,9 +149,7 @@ $fetch_students = mysqli_query($conn, $select_student);
                             <td><?php echo $row['sname']; ?></td>
                             <td><?php echo $row['scontact']; ?></td>
                             <td><?php echo $row['pname']; ?></td>
-                            <td>
-                                <a href="actions/morefee.php?more=<?php echo $row['sid']; ?>" class="collectfee_collect">Add Fee</a>
-                            </td>
+                            <td><?php echo $row['sbatchyear'];?></td>
                             <td>
                                 <a href="actions/paymentprocess.php?pay=<?php echo $row['sid']; ?>" class="collectfee_collect">Collect Fee</a>
                             </td>

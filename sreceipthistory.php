@@ -1,15 +1,22 @@
 <?php
-session_start();
-include 'db/connection.php';
 
-//setting up session
+//sessions
+session_start();
+include 'dbconn/connection.php';
+if (!isset($_SESSION['student_id'])) {
+    header('Location: slogin.php');
+    exit();
+}
+$student_id = $_SESSION['student_id'];
 if (isset($_POST['receipt_databtn'])) {
     $_SESSION['receipt_number'] = $_POST['receipt_number'];
 
-    header('Location: actions/receipt.php');
+    header('Location: sreceipt.php');
     
 }
 
+
+//others
 $where = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
@@ -51,7 +58,7 @@ $select_transaction = "
     SELECT ft.receipt_number, SUM(ft.amount) AS total_amount, MAX(ft.payment_date) AS payment_date, s.senroll, s.sname
     FROM fee_transaction ft
     JOIN student s ON ft.sid = s.sid
-    $where 
+    WHERE ft.sid = '$student_id' $where 
     GROUP BY ft.receipt_number
     ORDER BY ft.feeid DESC
     LIMIT $limit OFFSET $offset
@@ -67,22 +74,22 @@ $fetch_transactions = mysqli_query($conn, $select_transaction);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction List</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="sindex.css">
 </head>
 
 <body class="feepaidhistory_body">
-    <?php include 'dashhead.php'; ?>
+    <?php include 'sdashhead.php'; ?>
 
     <div class="feepaidhistory_maincontents">
         <div class="feepaidhistory_header">
             <h1>Fee Paid History</h1>
-            <div class="feepaidhistory_search_bar">
+            <!-- <div class="feepaidhistory_search_bar">
                 <form method="GET" action="feepaidhistory.php">
                     <input type="text" name="search" placeholder="Search by student enroll, name or receipt number">
                     <button type="submit">Search</button>
-                    <button type="button" onclick="window.location.href='feepaidhistory.php';">Reset</button>
+                    <button type="button" onclick="window.location.href='sreceipthistory.php';">Reset</button>
                 </form>
-            </div>
+            </div> -->
         </div>
 
         <div class="feepaidhistory_table_limit">

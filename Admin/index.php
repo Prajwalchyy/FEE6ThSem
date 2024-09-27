@@ -1,25 +1,33 @@
 <?php
+session_start();
 include 'db/connection.php';
 
-//fetch total admins
+
+
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
 $admins_count = "SELECT COUNT(*) AS total_admins FROM admin";
 $admins_result = mysqli_query($conn, $admins_count);
 $admins_row = mysqli_fetch_assoc($admins_result);
 $total_admins = $admins_row['total_admins'];
 
-// Fetch total students
+
 $student_count = "SELECT COUNT(*) AS total_students FROM student";
 $total_students_result = mysqli_query($conn, $student_count);
 $total_students_row = mysqli_fetch_assoc($total_students_result);
 $total_students = $total_students_row['total_students'];
 
-//getch total programs
+
 $programs_count = "SELECT COUNT(*) AS total_programs FROM program";
 $programs_result = mysqli_query($conn, $programs_count);
 $programs_row = mysqli_fetch_assoc($programs_result);
 $total_programs = $programs_row['total_programs'];
 
-//fetch active and inactive students
+
 $active_students_count = "SELECT COUNT(*) AS active_students FROM student WHERE sstatus = 'active'";
 $active_students_result = mysqli_query($conn, $active_students_count);
 $active_students_row = mysqli_fetch_assoc($active_students_result);
@@ -93,8 +101,8 @@ $inactive_students = $inactive_students_row['inactive_students'];
             document.getElementById('currentTime').textContent = now.toLocaleTimeString([], options);
         }
 
-        setInterval(updateTime, 1000); // Update time every second
-        updateTime(); // Initial call to display time immediately
+        setInterval(updateTime, 1000); 
+        updateTime(); 
     </script>
 </body>
 

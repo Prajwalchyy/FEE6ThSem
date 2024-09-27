@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../db/connection.php';
+include 'dbconn/connection.php';
 
 // $receipt_number = isset($_GET['receiptfetcher']) ? mysqli_real_escape_string($conn, $_GET['receiptfetcher']) : '';
 $receipt_number = isset($_SESSION['receipt_number']) ? mysqli_real_escape_string($conn, $_SESSION['receipt_number']) : '';
@@ -197,7 +197,7 @@ $total_fee_result = mysqli_query($conn, $total_fee_query);
     <script>
         function confirmBack() {
             if (confirm("Are you sure you want to go back? Any unsaved changes will be lost.")) {
-                window.location.href = '../collectfee.php';
+                window.location.href = 'sreceipthistory.php';
             }
         }
     </script>

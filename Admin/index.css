@@ -323,6 +323,7 @@ p {
 /* ADD STUDENT------------------------------------------------------------------------------------ */
 
 .addstudent_body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -381,6 +382,7 @@ p {
 /* UPDATE STUDENT------------------------------------------------------------------------------------ */
 
 .updatestudent_body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -965,6 +967,7 @@ p {
 /* ADDFACULTY--------------------------------------------------------------------------------- */
 
 .addfaculty_body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1177,13 +1180,14 @@ p {
 
 .feepaidhistory_header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
 }
+
+
 
 .feepaidhistory_header h1 {
     margin: 0;
@@ -1192,14 +1196,17 @@ p {
 .feepaidhistory_search_bar {
     display: flex;
     align-items: center;
+    margin-left: 10%;
 }
+
 
 .feepaidhistory_search_bar input {
     padding: 10px;
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 250px;
+    width: 400px;
+    flex: 1;
 }
 
 .feepaidhistory_search_bar button {
