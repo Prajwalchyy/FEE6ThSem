@@ -7,8 +7,10 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-if (isset($_GET['more'])) {
-    $id = mysqli_real_escape_string($conn, $_GET['more']);
+// if (isset($_GET['more'])) {
+if (isset($_SESSION['morefee_student_id'])) {
+    $id = $_SESSION['morefee_student_id'];
+    // $id = mysqli_real_escape_string($conn, $_GET['more']);
     $query = "SELECT * FROM student
     JOIN program ON student.pid = program.pid
      WHERE sid = '$id'";
@@ -85,7 +87,7 @@ if (isset($_POST['addfeebtn'])) {
         <section class="morefee_pay">
             <h3>Add Student Fee</h3>
             <form method="POST" action="#">
-            <input type="hidden" name="sid" value="<?php echo $student['sid']; ?>">
+                <input type="hidden" name="sid" value="<?php echo $student['sid']; ?>">
                 <div class="morefee_inputgroup">
                     <label for="mfeecategory">Fee Category:</label>
                     <select name="mfeecategory" id="mfeecategory" class="morefee_option" required>

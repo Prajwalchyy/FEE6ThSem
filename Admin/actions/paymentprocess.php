@@ -15,7 +15,16 @@ if (isset($_SESSION['success_message'])) {
 // if (isset($_GET['pay'])) {
 
 if (isset($_SESSION['pay_student_id'])) {
-    $student_id = $_SESSION['pay_student_id'];
+
+      $student_id = $_SESSION['pay_student_id'];
+
+    if (isset($_POST['add_more_fees'])) {
+        $_SESSION['morefee_student_id'] = $_POST['student_id'];
+    
+        header("Location: morefee.php");
+        exit();
+    }
+  
 
     // $id = mysqli_real_escape_string($conn, $_GET['pay']);
     $student_iid = mysqli_real_escape_string($conn, $student_id);
@@ -323,7 +332,10 @@ if (isset($_POST['processpaybtn'])) {
                 </div> -->
                 <button type="submit" name="processpaybtn" class="paymentprocess_inputpaybtn">Process Payment</button><br><br>
 
-                <a href="morefee.php?more=<?php echo $student_iid; ?>" class="apaymentprocess_inputpaybtn">Add More Fees</a><br><br>
+                <form method="POST" action="">
+                    <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
+                    <button type="submit" name="add_more_fees" class="paymentprocess_inputpaybtn">Add More Fees</button>
+                </form><br><br>
 
                 <button type="button" class="paymentprocess_inputpaybtn" onclick="confirmBack()">Back</button>
 
