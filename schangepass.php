@@ -45,7 +45,7 @@ if (isset($_POST['change_password'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Password</title>
-    <link rel="stylesheet" href="sindex.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="changepass-body">

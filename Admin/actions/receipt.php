@@ -50,7 +50,7 @@ $total_fee_result = mysqli_query($conn, $total_fee_query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Bill</title>
+    <title>Transaction Receipt</title>
     <style>
         .receipt_body {
             font-family: Arial, sans-serif;
@@ -201,7 +201,8 @@ $total_fee_result = mysqli_query($conn, $total_fee_query);
     <script>
         function confirmBack() {
             if (confirm("Are you sure you want to go back? Any unsaved changes will be lost.")) {
-                window.location.href = '../collectfee.php';
+                // window.location.href = '../collectfee.php';
+                window.location.href = document.referrer;
             }
         }
     </script>

@@ -577,3 +577,98 @@ p {
 .feepaidhistory_pagination a:hover {
     background-color: #0056b3;
 }
+
+
+/* STUDENTDETAIL................................................. */
+
+.studentdetail_body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.studentdetail_secondbody {
+    margin-left: 15%;
+    padding: 20px;
+    padding-left: 5px;
+    background: linear-gradient(135deg, rgba(255, 204, 204, 0.7), rgba(153, 204, 255, 0.7), rgba(153, 255, 204, 0.7));
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.studentdetail_student-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    padding: 20px;
+    width: 80%;
+    max-width: 1000px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom:10%;
+    height: auto;
+}
+.allstudent-details,
+.allfee-details {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.allstudent-details h2,
+.allfee-details h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.studentdetail_student-wrapper .detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.studentdetail_student-wrapper .detail:last-child {
+    border-bottom: none;
+}
+
+.studentdetail_student-wrapper label {
+    font-weight: bold;
+    color: #555;
+}
+
+.studentdetail_student-wrapper span {
+    color: #222;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .studentdetail_student-wrapper {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+}

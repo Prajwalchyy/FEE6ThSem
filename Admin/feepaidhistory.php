@@ -16,6 +16,16 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     $where = "WHERE s.senroll LIKE '%$search%' OR s.sname LIKE '%$search%' OR ft.receipt_number LIKE '%$search%'";
 }
 
+if (isset($_GET['start_date']) && !empty($_GET['start_date']) && isset($_GET['end_date']) && !empty($_GET['end_date'])) {
+    $start_date = mysqli_real_escape_string($conn, $_GET['start_date']);
+    $end_date = mysqli_real_escape_string($conn, $_GET['end_date']);
+    if (!empty($where)) {
+        $where .= " AND ft.payment_date BETWEEN '$start_date' AND '$end_date'";
+    } else {
+        $where .= " WHERE ft.payment_date BETWEEN '$start_date' AND '$end_date'";
+    }
+}
+
 $default_limit = 10;
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : $default_limit;
 
@@ -57,6 +67,44 @@ $select_transaction = "
     LIMIT $limit OFFSET $offset
 ";
 $fetch_transactions = mysqli_query($conn, $select_transaction);
+
+if (isset($_POST['actionpdf']) && $_POST['actionpdf'] == 'pdf') {
+    //PDF PHP CODES
+    require('C:\xampp\htdocs\Library\Pdf\fpdf.php');
+    $pdf = new FPDF();
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->AddPage();
+    $pdf->Cell(0, 10, 'Fee Payment History', 0, 1, 'C');
+    if (!empty($search)) {
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(0, 10, 'Search: ' . htmlspecialchars($search), 0, 1);
+    }
+    $pdf->Ln(10);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(10, 10, 'No', 1);
+    $pdf->Cell(80, 10, 'Student Name', 1);
+    $pdf->Cell(30, 10, 'Receipt No.', 1);
+    $pdf->Cell(30, 10, 'Payment Date', 1);
+    $pdf->Cell(40, 10, 'Amount', 1);
+    $pdf->Ln();
+    $pdf->SetFont('Arial', '', 12);
+    $counter = 1;
+    $pdftotal_amount = 0;
+    while ($row = mysqli_fetch_assoc($fetch_transactions)) {
+        $pdf->Cell(10, 10, $counter, 1);
+        $pdf->Cell(80, 10, $row['sname'], 1);
+        $pdf->Cell(30, 10, $row['receipt_number'], 1);
+        $pdf->Cell(30, 10, $row['payment_date'], 1);
+        $pdf->Cell(40, 10, 'Rs ' . number_format($row['total_amount']), 1);
+        $pdf->Ln();
+        $pdftotal_amount += $row['total_amount'];
+        $counter++;
+    }
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(150, 10, 'Total Amount', 1);
+    $pdf->Cell(40, 10, 'Rs ' . number_format($pdftotal_amount), 1);
+    $pdf->Output('D', 'fee_payment_history.pdf');
+}
 ?>
 
 
@@ -68,6 +116,18 @@ $fetch_transactions = mysqli_query($conn, $select_transaction);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction List</title>
     <link rel="stylesheet" href="index.css">
+    <style>
+        .limitforflex {
+            display: flex;
+            justify-content: space-between;
+            width: 1200px;
+        }
+
+        .downlaodpdforexcell {
+            /* margin-left: 20%; */
+            display: flex;
+        }
+    </style>
 </head>
 
 <body class="feepaidhistory_body">
@@ -78,27 +138,41 @@ $fetch_transactions = mysqli_query($conn, $select_transaction);
             <h1>Fee Paid History</h1>
             <div class="feepaidhistory_search_bar">
                 <form method="GET" action="feepaidhistory.php">
-                    <input type="text" name="search" placeholder="Search by student enroll, name or receipt number">
+                    <input type="text" name="search" placeholder="Search by student enroll, name, or receipt number">
+                    <input type="date" name="start_date" placeholder="Start Date">
+                    <input type="date" name="end_date" placeholder="End Date">
                     <button type="submit">Search</button>
                     <button type="button" onclick="window.location.href='feepaidhistory.php';">Reset</button>
                 </form>
+
             </div>
         </div>
+        <div class="limitforflex">
+            <div class="feepaidhistory_table_limit">
+                <label>Table Limit</label>
+                <form action="" method="GET" id="feepaidhistory_limit_form">
 
-        <div class="feepaidhistory_table_limit">
-            <label>Table Limit</label>
-            <form action="" method="GET" id="feepaidhistory_limit_form">
-                <input class="feepaidhistory_limit" id="feepaidhistory_limitid" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 10; ?>">
-                <input type="hidden" name="search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                <button type="submit">SET</button>
-                <button type="button" onclick="resetLimit()">RESET</button>
-            </form>
-            <script>
-                function resetLimit() {
-                    document.getElementById('feepaidhistory_limitid').value = 10;
-                    document.getElementById('feepaidhistory_limit_form').submit();
-                }
-            </script>
+                    <div>
+                        <input class="feepaidhistory_limit" id="feepaidhistory_limitid" type="text" name="limit" value="<?php echo isset($_GET['limit']) ? (int)$_GET['limit'] : 10; ?>">
+                        <input type="hidden" name="search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                        <button type="submit">SET</button>
+                        <button type="button" onclick="resetLimit()">RESET</button>
+                    </div>
+
+                </form>
+                <script>
+                    function resetLimit() {
+                        document.getElementById('feepaidhistory_limitid').value = 10;
+                        document.getElementById('feepaidhistory_limit_form').submit();
+                    }
+                </script>
+            </div>
+            <div class="downlaodpdforexcell">
+                <form action="" method="POST">
+                    <input type="hidden" name="actionpdf" value="pdf">
+                    <button type="submit">Download PDF</button>
+                </form>
+            </div>
         </div>
 
         <div class="feepaidhistory_table">

@@ -25,7 +25,7 @@ if (isset($_SESSION['pay_student_id'])) {
         exit();
     }
   
-
+    
     // $id = mysqli_real_escape_string($conn, $_GET['pay']);
     $student_iid = mysqli_real_escape_string($conn, $student_id);
     $query = "SELECT student.*, morefee.*, program.*, fee_transaction.*
@@ -134,7 +134,8 @@ if (isset($_SESSION['pay_student_id'])) {
 }
 
 if (isset($_POST['processpaybtn'])) {
-    $receipt_code = uniqid('RC-', true); // Generates a unique receipt code
+    // $receipt_code = uniqid('RC-', true); // Generates a unique receipt code
+    $receipt_code = 'RC-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 6));
     $payment_date = mysqli_real_escape_string($conn, string: $_POST['payment_date']);
     $fee_categories = $_POST['fee_categories'] ?? [];
     $amounts = $_POST['amounts'] ?? [];

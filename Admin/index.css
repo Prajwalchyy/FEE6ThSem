@@ -1292,8 +1292,14 @@ p {
     margin-right: 10px;
     width: 60px;
 }
+.downlaodpdforexcell{
+    /* padding: 5px 10px; */
+    border-radius: 4px;
+    margin-right: 10px;
+}
 
-.feepaidhistory_table_limit button {
+.feepaidhistory_table_limit button,
+.downlaodpdforexcell button {
     padding: 5px 15px;
     background-color: #4CAF50;
     color: white;
@@ -1303,8 +1309,33 @@ p {
     margin-right: 10px;
 }
 
-.feepaidhistory_table_limit button:hover {
+.feepaidhistory_table_limit button:hover,
+.downlaodpdforexcell button:hover {
     background-color: #45a049;
+}
+
+
+.downlaodpdforexcell button {
+    background-color: #343A40;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 120px;
+    height: 36px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.downlaodpdforexcell button:hover {
+    background-color: #23272b;
+}
+
+.downlaodpdforexcell button:active {
+    transform: translateY(1px);
 }
 
 
@@ -1377,3 +1408,4 @@ p {
 .feepaidhistory_pagination a:hover {
     background-color: #0056b3;
 }
+

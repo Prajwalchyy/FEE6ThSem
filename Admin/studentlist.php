@@ -7,6 +7,22 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
+// if (isset($_POST['studentdetail'])) {
+//     $student_id = mysqli_real_escape_string($conn, $_POST['student_id']);
+//     $_SESSION['pay_student_id'] = $fetch_students;
+//     header('Location: actions/studentfeedetail.php');
+//     exit();
+// }
+
+
+if (isset($_POST['studentdetailbtn'])) {
+    $_SESSION['detail_student_id'] = $_POST['studentdetailinput'];
+        header('Location: actions/studentandfeedetail.php');
+    exit();
+}
+
+
+
 $where = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
@@ -54,7 +70,6 @@ $select_student = "SELECT * FROM student
 JOIN program ON student.pid = program.pid
 $where ORDER BY CAST(senroll AS UNSIGNED) DESC LIMIT $limit OFFSET $offset";
 $fetch_students = mysqli_query($conn, $select_student);
-
 ?>
 
 <!DOCTYPE html>
@@ -132,7 +147,10 @@ $fetch_students = mysqli_query($conn, $select_student);
                                 <a href="actions/studentdelete.php?delete=<?php echo $row['sid']; ?>" class="studentlist_delete" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
                             </td>
                             <td>
-                                <a href="actions/studentdetail.php?detail=<?php echo $row['sid']; ?>" class="studentlist_detail">Detail</a>
+                                <form action="" method="POST" style="display:inline;">
+                                    <input type="hidden" name="studentdetailinput" value="<?php echo $row['sid']; ?>">
+                                    <button type="submit" name="studentdetailbtn" class="studentlist_detail">Detail</button>
+                                </form>
                             </td>
                         </tr>
                     <?php

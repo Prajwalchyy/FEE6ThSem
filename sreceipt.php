@@ -3,6 +3,11 @@ session_start();
 
 include 'dbconn/connection.php';
 
+
+if (!isset($_SESSION['student_id'])) {
+    header('Location: slogin.php');
+    exit();
+}
 // $receipt_number = isset($_GET['receiptfetcher']) ? mysqli_real_escape_string($conn, $_GET['receiptfetcher']) : '';
 $receipt_number = isset($_SESSION['receipt_number']) ? mysqli_real_escape_string($conn, $_SESSION['receipt_number']) : '';
 
@@ -197,7 +202,8 @@ $total_fee_result = mysqli_query($conn, $total_fee_query);
     <script>
         function confirmBack() {
             if (confirm("Are you sure you want to go back? Any unsaved changes will be lost.")) {
-                window.location.href = 'sreceipthistory.php';
+                // window.location.href = 'sreceipthistory.php';
+                window.location.href = document.referrer;
             }
         }
     </script>
