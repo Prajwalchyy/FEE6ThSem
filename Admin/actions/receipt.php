@@ -196,6 +196,8 @@ $total_fee_result = mysqli_query($conn, $total_fee_query);
 
     <button class="receipt_print-btn" onclick="window.print()">Print Bill</button>
 
+    <!-- <a href="javascript:history.back()" class="receipt_print-btn">Back</a> -->
+
     <button type="button" class="receipt_print-btn" onclick="confirmBack()">Back</button>
 
     <script>

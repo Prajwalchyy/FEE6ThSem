@@ -127,6 +127,9 @@ if (isset($_POST['actionpdf']) && $_POST['actionpdf'] == 'pdf') {
             /* margin-left: 20%; */
             display: flex;
         }
+        .feepaidhistory_search-forflex{
+            display: flex;
+        }
     </style>
 </head>
 
@@ -138,11 +141,20 @@ if (isset($_POST['actionpdf']) && $_POST['actionpdf'] == 'pdf') {
             <h1>Fee Paid History</h1>
             <div class="feepaidhistory_search_bar">
                 <form method="GET" action="feepaidhistory.php">
-                    <input type="text" name="search" placeholder="Search by student enroll, name, or receipt number">
-                    <input type="date" name="start_date" placeholder="Start Date">
-                    <input type="date" name="end_date" placeholder="End Date">
-                    <button type="submit">Search</button>
-                    <button type="button" onclick="window.location.href='feepaidhistory.php';">Reset</button>
+                    <div class="feepaidhistory_search-forflex">
+                        <div>
+                            <input type="text" name="search" placeholder="Search by student enroll, name, or receipt number" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                        </div>
+                        <div class="feepaid_search_bydate">
+                            <input type="date" name="start_date" placeholder="Start Date" value="<?php echo isset($_GET['start_date']) ? htmlspecialchars($_GET['start_date']) : ''; ?>">
+                            <span>TO</span>
+                            <input type="date" name="end_date" placeholder="End Date" value="<?php echo isset($_GET['end_date']) ? htmlspecialchars($_GET['end_date']) : ''; ?>">
+                        </div>
+                        <div>
+                            <button type="submit">Search</button>
+                            <button type="button" onclick="window.location.href='feepaidhistory.php';">Reset</button>
+                        </div>
+                    </div>
                 </form>
 
             </div>

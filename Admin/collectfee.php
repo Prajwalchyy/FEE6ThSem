@@ -23,11 +23,11 @@ $program_result = mysqli_query($conn, $fetch_programnames);
 
 
 
-$where = "";
+// $where = "";
+$where = "WHERE student.sstatus = 'active'";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
-    // $where = "WHERE sname LIKE '%$search%' OR senroll LIKE '%$search%' OR scontact LIKE '%$search%'";
-    $where = "WHERE sname LIKE '%$search%'";
+    $where .= " AND sname LIKE '%$search%'"; // Append search to the active status condition
 }
 
 if (isset($_GET['faculty']) && !empty($_GET['faculty']) && $_GET['faculty'] != 'Select Program') {
@@ -69,14 +69,10 @@ $total_records = $total_row['total'];
 
 $total_pages = ceil($total_records / $limit);
 
-
-$select_student = "SELECT * FROM student
-JOIN program ON student.pid = program.pid
-$where ORDER BY CAST(senroll AS UNSIGNED) DESC LIMIT $limit OFFSET $offset";
-$fetch_students = mysqli_query($conn, $select_student);
-
-
-
+    $select_student = "SELECT * FROM student
+    JOIN program ON student.pid = program.pid
+    $where ORDER BY CAST(senroll AS UNSIGNED) DESC LIMIT $limit OFFSET $offset";
+    $fetch_students = mysqli_query($conn, $select_student);
 
 ?>
 

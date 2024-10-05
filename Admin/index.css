@@ -1252,7 +1252,7 @@ p {
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 400px;
+    width: 300px;
     flex: 1;
 }
 
@@ -1263,6 +1263,10 @@ p {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.feepaid_search_bydate input {
+    width: 120px;
 }
 
 .feepaidhistory_header a {

@@ -13,8 +13,43 @@ if (isset($_POST['receipt_databtn'])) {
 }
 
 
+
+
 if (isset($_SESSION['detail_student_id'])) {
     $student_iid = $_SESSION['detail_student_id'];
+
+    // if (isset($_POST['inactive_student'])) {
+
+    //     $update_query = "UPDATE student SET sstatus = 'Inactive' WHERE sid = '$student_iid'";
+    //     if (mysqli_query($conn, $update_query)) {
+    //         echo "Student status updated to Inactive.";
+    //     } else {
+    //         echo "Error updating student status: " . mysqli_error($conn);
+    //     }
+    // }
+
+    if (isset($_POST['inactive_student'])) {
+        $check_status_query = "SELECT sstatus FROM student WHERE sid = '$student_iid'";
+        $status_result = mysqli_query($conn, $check_status_query);
+        $status_data = mysqli_fetch_assoc($status_result);
+
+        if ($status_data['sstatus'] === 'Inactive') {
+            echo "<script>
+                alert('Student is already inactive.');
+                window.location.href='../studentlist.php';
+            </script>";
+        } else {
+            $update_query = "UPDATE student SET sstatus = 'Inactive' WHERE sid = '$student_iid'";
+            if (mysqli_query($conn, $update_query)) {
+                echo "<script>
+                    alert('Student has been inactivated.');
+                    window.location.href='../studentlist.php';
+                </script>";
+            } else {
+                echo "Error updating student status: " . mysqli_error($conn);
+            }
+        }
+    }
 
 
     $select_student = "SELECT * FROM student
@@ -194,7 +229,18 @@ $counter = 1;
             <p><strong>Name:</strong> <?php echo $student_info['sname'] ?></p>
             <p><strong>Program:</strong> <?php echo $student_info['pname'] ?></p>
             <p><strong>Batch:</strong> <?php echo $student_info['sbatchyear'] ?></p>
-            <button type="button" class="inactive_btn">Inactive Student</button>
+            <p><strong>Status:</strong> <?php echo $student_info['sstatus'] ?></p>
+
+            <form method="POST" action="" onsubmit="return confirmInactive();">
+                <input type="hidden" name="student_id" value="<?php echo $student_id; ?>"> <!-- Hidden input to pass student ID -->
+                <button type="submit" name="inactive_student" class="inactive_btn">Inactive Student</button>
+            </form>
+
+            <script>
+                function confirmInactive() {
+                    return confirm("Are you sure you want to inactive this student?");
+                }
+            </script>
         </div>
         <h2 class="standfe_h2">Payment History</h2>
         <table class="standfe_table">
