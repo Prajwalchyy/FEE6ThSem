@@ -115,7 +115,7 @@ if (isset($_SESSION['pay_student_id'])) {
         if (mysqli_num_rows($result_categories) > 0) {
             while ($category = mysqli_fetch_assoc($result_categories)) {
                 $mfeecategory = $category['mfeecategory'];
-                $totalAmount = $category['total_amount']; // Use the summed total amount
+                $totalAmount = $category['total_amount'];
 
 
                 $query_paid = "SELECT SUM(amount) as total_paid FROM fee_transaction 
