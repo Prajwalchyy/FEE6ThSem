@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2024 at 08:38 AM
+-- Generation Time: Dec 11, 2024 at 08:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,7 +68,10 @@ INSERT INTO `fee_transaction` (`feeid`, `sid`, `receipt_number`, `feecategory`, 
 (142, 27, 'RC-F6B77C', 'Transportation', 5000.00, '2024-10-03', 20000.00),
 (143, 28, 'RC-901177', 'ProgramFee', 30000.00, '2024-10-03', 440000.00),
 (144, 28, 'RC-23CE72', 'ProgramFee', 50000.00, '2024-10-03', 410000.00),
-(145, 28, 'RC-23CE72', 'Transportation', 7000.00, '2024-10-03', 20000.00);
+(145, 28, 'RC-23CE72', 'Transportation', 7000.00, '2024-10-03', 20000.00),
+(146, 27, 'RC-5F8D37', 'ProgramFee', 10000.00, '2024-10-06', 320000.00),
+(147, 27, 'RC-5F8D37', 'Transportation', 10000.00, '2024-10-06', 15000.00),
+(148, 27, 'RC-810E11', 'ProgramFee', 10000.00, '2024-10-06', 310000.00);
 
 -- --------------------------------------------------------
 
@@ -151,10 +154,10 @@ INSERT INTO `student` (`sid`, `senroll`, `sname`, `scontact`, `ssex`, `pid`, `sb
 (14, '1', 'Niraj  Kumar chaudhary', '9811111111', 'male', 2, 2081, 'pass54321', 480000.00, 'semester', 'active'),
 (15, '2', 'Prajwal Chaudhary', '9822222222', 'male', 2, 2081, 'pass12345', 20000.00, 'semester', 'active'),
 (16, '3', 'Ankit Tamang', '9833333333', 'male', 3, 2081, 'pass12345', 20000.00, 'yearly', 'active'),
-(18, '5', 'Gaurav', '9855555555', 'male', 3, 2081, 'pass12345', 20000.00, 'yearly', 'active'),
+(18, '5', 'Gaurav', '9855555555', 'male', 3, 2081, 'pass12345', 20000.00, 'yearly', 'Inactive'),
 (19, '6', 'Bishal', '9866666666', 'female', 3, 2081, 'pass12345', 20000.00, 'semester', 'active'),
 (22, '40', 'Sushant chy', '9800000040', 'female', 3, 2081, 'pass12345', 20000.00, 'yearly', 'active'),
-(23, '12', 'Z', '9800000012', 'female', 2, 2081, 'pass12345', 20000.00, 'semester', 'active'),
+(23, '12', 'Z', '9800000012', 'female', 2, 2081, 'pass12345', 20000.00, 'semester', 'Inactive'),
 (24, '13', 'ZZ', '9800000013', 'female', 3, 2081, 'pass12345', 20000.00, 'semester', 'active'),
 (25, '14', 'Example14', '9800000014', 'male', 4, 2081, 'pass12345', 20000.00, 'yearly', 'active'),
 (26, '222', 'example1', '9800000222', 'male', 2, 2081, 'pass12345', 480000.00, 'semester', 'active'),
@@ -212,7 +215,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `fee_transaction`
 --
 ALTER TABLE `fee_transaction`
-  MODIFY `feeid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `feeid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `morefee`
